@@ -1,0 +1,34 @@
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+.next/
+out/
+*.tsbuildinfo
+
+# Cloudflare (adaptador OpenNext)
+.open-next/
+.wrangler/
+
+# Turbo
+.turbo/
+
+# Variables de entorno (los .env.example sí se versionan)
+.env
+.env.local
+.env.*.local
+!.env.example
+!**/.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Cobertura y temporales
+coverage/
+.DS_Store
+
+# Artefactos de herramientas
+.playwright-mcp/

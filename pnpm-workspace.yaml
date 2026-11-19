@@ -1,0 +1,9 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Permite que esbuild (usado por tsx) ejecute su script de instalación
+allowBuilds:
+  esbuild: true
+  # Wrangler necesita el binario de workerd para previsualizar el Worker
+  workerd: true

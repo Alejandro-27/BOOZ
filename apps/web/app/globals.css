@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* Paleta y tipografías de la marca (Tailwind 4 genera utilidades desde @theme) */
+@theme {
+  --color-carbon: #1a1a1a;
+  --color-carbon-suave: #2a2a2a;
+  --color-hueso: #f7f4ef;
+  --color-cuero: #8b5e3c;
+  --color-dorado: #d4af37;
+
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-hueso);
+    color: var(--color-carbon);
+  }
+
+  /* Foco visible para navegación con teclado */
+  :focus-visible {
+    outline: 2px solid var(--color-cuero);
+    outline-offset: 2px;
+  }
+}
