@@ -10,5 +10,15 @@ export const COLORES = [
   { nombre: "Grafito", hex: "#3A3A3A" },
 ];
 
+/** Nombre comercial de la marca. */
+export const MARCA = "BOOZ";
+
 /** URL pública del sitio, usada en enlaces de WhatsApp y QR. */
 export const URL_SITIO = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+/** Datos de contacto de respaldo si store_config no carga. */
+export const CONTACTO = {
+  whatsapp: "573003080609",
+  email: "boozshoes8@gmail.com",
+  ciudad: "Arauca, Colombia",
+};

@@ -16,28 +16,27 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const TITULO = "Zapatería Elegante | Calzado de vestir para hombre";
 const DESCRIPCION =
-  "Catálogo de calzado de vestir para hombre: zapatos formales, casuales, de boda y botas. Compra directo por WhatsApp.";
+  "Catálogo digital de calzado masculino de vestir BOOZ en Arauca, Colombia.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
-    default: TITULO,
-    template: "%s | Zapatería Elegante",
+    default: "BOOZ",
+    template: "%s | BOOZ",
   },
   description: DESCRIPCION,
   openGraph: {
     type: "website",
-    locale: "es_MX",
-    siteName: "Zapatería Elegante",
+    locale: "es_CO",
+    siteName: "BOOZ Shoes",
     url: "/",
-    title: TITULO,
+    title: "BOOZ",
     description: DESCRIPCION,
   },
   twitter: {
-    card: "summary",
-    title: TITULO,
+    card: "summary_large_image",
+    title: "BOOZ",
     description: DESCRIPCION,
   },
 };

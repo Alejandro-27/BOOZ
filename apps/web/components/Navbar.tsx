@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -33,10 +34,17 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
       >
         <Link
           href="/"
-          className="font-display text-xl tracking-wide"
+          className="flex items-center gap-2 font-display tracking-wide"
           onClick={() => setAbierto(false)}
         >
-          {nombreTienda}
+          <Image
+            src="/logo.jpeg"
+            alt="BOOZ"
+            width={32}
+            height={32}
+            className="rounded"
+          />
+          <span className="text-xl font-display">{nombreTienda}</span>
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">

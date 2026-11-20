@@ -48,13 +48,13 @@ export default async function InicioPage() {
           aria-hidden
         />
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:py-28">
-          <p className="text-xs uppercase tracking-[0.35em] text-dorado">Calzado de vestir</p>
+          <p className="text-xs uppercase tracking-[0.35em] text-dorado">BOOZ</p>
           <h1 className="mt-5 max-w-2xl font-display text-4xl leading-[1.1] sm:text-6xl">
-            Elegancia que se nota en cada paso
+            Calzado masculino de vestir, hecho con carácter
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-hueso/75">
             {configuracion?.slogan ??
-              "Calzado de vestir para el hombre que cuida los detalles. Piel, comodidad y presencia en un mismo par."}
+              "Calzado masculino de vestir, hecho con carácter. Diseñado en Arauca, Colombia."}
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link

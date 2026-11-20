@@ -1,9 +1,8 @@
 # Despliegue en producción
 
-Guía paso a paso para publicar la tienda: **Supabase** (base de datos y auth), **Render** (API Fastify) y **Cloudflare** (web Next.js).
+Guía paso a paso para publicar la tienda **BOOZ Shoes**: **Supabase** (base de datos y auth), **Render** (API Fastify) y **Cloudflare Workers** (web Next.js).
 
 > Orden recomendado: Supabase → Render → Cloudflare. La web necesita la URL de la API y la API necesita el dominio final de la web para CORS, así que al terminar se ajusta `CORS_ORIGIN` y se vuelve a desplegar la API.
-
 ---
 
 ## 0. Requisitos y verificación local
@@ -26,6 +25,7 @@ pnpm build
    1. `sql/01_schema.sql` — tablas, tipos e índices.
    2. `sql/02_rls.sql` — Row Level Security y políticas.
    3. `sql/03_seed.sql` — categorías, productos de ejemplo y configuración de la tienda.
+      **Nota:** este script ya trae los datos de BOOZ (nombre, slogan, WhatsApp, correo, dirección de Arauca y colores de marca) con `id = 1` en `store_config`. Es idempotente: se puede ejecutar varias veces.
 3. En **Project Settings → API** copia:
    - `Project URL` → `SUPABASE_URL` (API) y `NEXT_PUBLIC_SUPABASE_URL` (web).
    - `anon public` → `NEXT_PUBLIC_SUPABASE_ANON_KEY` (web).
@@ -60,7 +60,7 @@ pnpm build
    | `CLOUDINARY_CLOUD_NAME` | nombre del cloud de Cloudinary |
    | `CLOUDINARY_API_KEY` | API key de Cloudinary |
    | `CLOUDINARY_API_SECRET` | API secret de Cloudinary |
-   | `CORS_ORIGIN` | dominio final de la web, sin barra final (ej. `https://zapateria.pages.dev`) |
+   | `CORS_ORIGIN` | dominio final de la web, sin barra final (ej. `https://booz.tu-subdomain.workers.dev`) |
 
    `PORT` lo inyecta Render automáticamente; no lo definas.
 4. Despliega y verifica `https://<api>.onrender.com/health`. Debe responder `200`.
@@ -93,7 +93,7 @@ pnpm build
    | `NEXT_PUBLIC_API_URL` | URL pública de la API en Render |
    | `NEXT_PUBLIC_SUPABASE_URL` | URL del proyecto de Supabase |
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | clave `anon public` |
-   | `NEXT_PUBLIC_SITE_URL` | dominio final de la web (ej. `https://zapateria.tudominio.com`) |
+   | `NEXT_PUBLIC_SITE_URL` | dominio final de la web (ej. `https://booz.tudominio.com`) |
    | `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | nombre del cloud de Cloudinary |
 
    Las variables `NEXT_PUBLIC_*` se incrustan en el bundle **durante el build**: si cambias una, vuelve a desplegar.
@@ -128,7 +128,8 @@ pnpm --filter @zapateria/web preview
 ## 5. Verificación posterior al despliegue
 
 - [ ] `GET https://<api>.onrender.com/health` → `200`.
-- [ ] `GET https://<api>.onrender.com/products` → lista de productos activos.
+- [ ] `curl http://localhost:3001/store-config` devuelve datos BOOZ (name='BOOZ', whatsapp='573003080609', email='boozshoes8@gmail.com').
+- [ ] `GET https://<api>.onrender.com/store-config` devuelve datos BOOZ.
 - [ ] La home carga el catálogo sin errores de CORS en la consola del navegador.
 - [ ] `/admin/login` permite entrar con el usuario creado en Supabase.
 - [ ] Crear/editar un producto, subir una imagen y despublicarlo (debe aparecer como **Borrador** en el panel y desaparecer del catálogo público).

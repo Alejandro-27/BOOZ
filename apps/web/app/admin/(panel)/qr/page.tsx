@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 import { Download } from "lucide-react";
 import { Alerta, Campo, claseInput } from "@/components/admin/Campo";
@@ -8,11 +8,12 @@ import { Alerta, Campo, claseInput } from "@/components/admin/Campo";
 const URL_POR_DEFECTO = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export default function QrPage() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [url, setUrl] = useState(URL_POR_DEFECTO);
   const [imagen, setImagen] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Se regenera en cada cambio; el QR es una imagen local y no cuesta red
+  // Genera el QR y, cuando el canvas está listo, superpone el logo al centro.
   useEffect(() => {
     let vigente = true;
     const destino = url.trim() || URL_POR_DEFECTO;
@@ -20,13 +21,14 @@ export default function QrPage() {
     QRCode.toDataURL(destino, {
       width: 640,
       margin: 2,
-      errorCorrectionLevel: "M",
+      errorCorrectionLevel: "H", // mayor corrección para permitir el logo al centro
       color: { dark: "#1a1a1a", light: "#ffffff" },
     })
       .then((dataUrl) => {
         if (!vigente) return;
         setImagen(dataUrl);
         setError(null);
+        void superponerLogo(canvasRef.current, dataUrl);
       })
       .catch(() => {
         if (vigente) setError("No se pudo generar el QR. Revisa la dirección.");
@@ -35,7 +37,63 @@ export default function QrPage() {
     return () => {
       vigente = false;
     };
-  }, [url]);
+  }, [url, canvasRef.current]);
+
+  /**
+   * Dibuja el QR en el canvas y superpone el logo de BOOZ al centro.
+   * El logo ocupa aproximadamente el 20 % del ancho del QR.
+   */
+  async function superponerLogo(canvas: HTMLCanvasElement | null, qrDataUrl: string) {
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const qrImg = await cargarImagen(qrDataUrl);
+    const logoImg = await cargarImagen("/logo.jpeg").catch(() => null);
+
+    const tamaño = 640;
+    canvas.width = tamaño;
+    canvas.height = tamaño;
+
+    // Dibuja el QR de fondo
+    ctx.drawImage(qrImg, 0, 0, tamaño, tamaño);
+
+    // Superpone el logo al centro si se cargó
+    if (logoImg) {
+      const logoTamaño = tamaño * 0.2; // 20 % del ancho del QR
+      const x = (tamaño - logoTamaño) / 2;
+      const y = (tamaño - logoTamaño) / 2;
+
+      // Círculo blanco alrededor del logo para mejorar legibilidad del QR
+      const radio = logoTamaño / 2 + 12;
+      ctx.beginPath();
+      ctx.arc(tamaño / 2, tamaño / 2, radio, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+
+      ctx.drawImage(logoImg, x, y, logoTamaño, logoTamaño);
+    }
+  }
+
+  function cargarImagen(src: string): Promise<HTMLImageElement> {
+    return new Promise((resolve, reject) => {
+      const ImgCtor = (globalThis as { Image: new () => HTMLImageElement }).Image;
+      const img = new ImgCtor();
+      img.crossOrigin = "anonymous";
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = src;
+    });
+  }
+
+  const descargarPng = () => {
+    if (!canvasRef.current || !imagen) return;
+    const enlace = document.createElement("a");
+    enlace.download = "booz-catalogo.png";
+    enlace.href = canvasRef.current.toDataURL("image/png");
+    enlace.click();
+  };
 
   return (
     <div className="space-y-8">
@@ -43,8 +101,8 @@ export default function QrPage() {
         <p className="text-xs uppercase tracking-[0.3em] text-cuero">Difusión</p>
         <h1 className="mt-2 font-display text-3xl">Código QR</h1>
         <p className="mt-2 max-w-xl text-sm text-carbon/60">
-          Imprímelo en el escaparate, tarjetas o etiquetas para que tus clientes abran la
-          tienda con la cámara del teléfono.
+          Escanea para ver el catálogo BOOZ. Imprímelo en el escaparate, tarjetas o
+          etiquetas para que tus clientes abran la tienda con la cámara del teléfono.
         </p>
       </header>
 
@@ -81,9 +139,9 @@ export default function QrPage() {
           className="border border-carbon/10 bg-white p-6 text-center"
         >
           {imagen ? (
-            <img
-              src={imagen}
-              alt="Código QR con la dirección de la tienda"
+            <canvas
+              ref={canvasRef}
+              aria-label="Código QR con el logo de BOOZ al centro"
               className="mx-auto aspect-square w-full max-w-64"
             />
           ) : (
@@ -92,15 +150,14 @@ export default function QrPage() {
             </div>
           )}
 
-          <a
-            href={imagen ?? "#"}
-            download="qr-zapateria.png"
-            aria-disabled={!imagen}
+          <button
+            onClick={descargarPng}
+            disabled={!imagen}
             className="mt-6 flex items-center justify-center gap-2 bg-carbon px-5 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-hueso transition-colors hover:bg-carbon-suave aria-disabled:pointer-events-none aria-disabled:opacity-50"
           >
             <Download className="size-4" aria-hidden />
             Descargar PNG
-          </a>
+          </button>
         </section>
       </div>
     </div>

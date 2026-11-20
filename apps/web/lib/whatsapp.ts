@@ -16,10 +16,11 @@ export function construirUrlWhatsApp({
   color,
   urlBase,
 }: MensajeWhatsApp): string {
+  // Sanitiza: quita +, espacios, guiones y cualquier no dígito
   const numeroLimpio = numero.replace(/\D/g, "");
 
   const lineas = [
-    `Hola, me interesa el modelo ${producto}.`,
+    `Hola BOOZ, me interesa el modelo ${producto}.`,
     talla ? `Talla: ${talla}` : null,
     color ? `Color: ${color}` : null,
     `Enlace: ${urlBase}/producto/${slug}`,

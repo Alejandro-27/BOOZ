@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { AtSign, Mail, MapPin, MessageCircle } from "lucide-react";
 import type { StoreConfig } from "@zapateria/shared";
@@ -9,16 +10,19 @@ interface Props {
 export function Footer({ configuracion }: Props) {
   const anio = new Date().getFullYear();
   const numeroWhatsApp = configuracion?.whatsapp.replace(/\D/g, "") ?? "";
-  const nombreTienda = configuracion?.name ?? "Zapatería Elegante";
+  const nombreTienda = configuracion?.name ?? "BOOZ";
 
   return (
     <footer className="mt-20 bg-carbon text-hueso">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2">
-          <p className="font-display text-2xl">{nombreTienda}</p>
+          <div className="flex items-center gap-2">
+            <Image src="/logo.jpeg" alt="BOOZ" width={32} height={32} className="rounded" />
+            <p className="font-display text-2xl">{nombreTienda}</p>
+          </div>
           <p className="mt-2 max-w-sm text-sm text-hueso/70">
             {configuracion?.slogan ??
-              "Calzado de vestir para el hombre que cuida los detalles."}
+              "Calzado masculino de vestir, hecho con carácter."}
           </p>
         </div>
 

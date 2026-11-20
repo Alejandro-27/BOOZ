@@ -9,13 +9,14 @@ export const metadata: Metadata = {
 
 export default async function NosotrosPage() {
   const configuracion = await obtenerConfiguracionSegura();
-  const nombreTienda = configuracion?.name ?? "Zapatería Elegante";
+  const nombreTienda = configuracion?.name ?? "BOOZ";
+  const ciudad = configuracion?.city ?? "Arauca, Colombia";
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:py-20">
       <p className="text-xs uppercase tracking-[0.3em] text-cuero">Nosotros</p>
       <h1 className="mt-3 font-display text-3xl leading-tight sm:text-5xl">
-        Calzado que acompaña tus momentos importantes
+        {nombreTienda}, calzado con carácter desde {ciudad}
       </h1>
 
       <div className="mt-10 space-y-5 text-sm leading-relaxed text-carbon/75 sm:text-base">
@@ -25,9 +26,10 @@ export default async function NosotrosPage() {
           un buen par de zapatos aporta.
         </p>
         <p>
-          Trabajamos con pieles de calidad y proveedores de confianza. Cada par pasa por una
-          revisión antes de llegar a tus manos, porque los detalles son los que hacen la
-          diferencia entre un zapato bonito y un zapato que quieres usar todos los días.
+          Diseñado y entregado desde {ciudad}, trabajamos con pieles de calidad y proveedores de
+          confianza. Cada par pasa por una revisión antes de llegar a tus manos, porque los
+          detalles son los que hacen la diferencia entre un zapato bonito y un zapato que quieres
+          usar todos los días.
         </p>
         <p>
           {configuracion?.slogan ??

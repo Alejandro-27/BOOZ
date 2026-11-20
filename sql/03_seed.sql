@@ -22,14 +22,14 @@ insert into public.store_config (
   id, name, slogan, whatsapp, email, instagram, address, city, policies, brand_colors
 ) values (
   1,
-  'Zapatería Elegante',
-  'Calzado de vestir para el hombre que cuida los detalles',
-  '5215512345678',
-  'contacto@zapateriaelegante.mx',
-  '@zapateriaelegante',
-  'Av. Reforma 123, Col. Centro',
-  'Ciudad de México',
-  'Envíos a todo el país en 3 a 5 días hábiles. Cambios sin costo dentro de los primeros 30 días. Garantía de 90 días por defectos de fabricación.',
+  'BOOZ',
+  'Calzado masculino de vestir, hecho con carácter',
+  '573003080609',
+  'boozshoes8@gmail.com',
+  'boozshoes',
+  'Arauca, Colombia',
+  '',
+  'Cambios dentro de los 5 días hábiles conservando caja y etiquetas. Zona de entrega: Arauca, Colombia.',
   '{"primary":"#1A1A1A","secondary":"#8B5E3C","accent":"#D4AF37"}'::jsonb
 )
 on conflict (id) do update
