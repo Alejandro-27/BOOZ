@@ -27,7 +27,7 @@ export function Footer({ configuracion }: Props) {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-dorado">Navegación</p>
+          <p className="text-sm font-medium text-dorado">Navegación</p>
           <ul className="mt-4 space-y-2 text-sm text-hueso/80">
             <li>
               <Link href="/catalogo" className="transition-colors hover:text-dorado">
@@ -48,7 +48,7 @@ export function Footer({ configuracion }: Props) {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-dorado">Contacto</p>
+          <p className="text-sm font-medium text-dorado">Contacto</p>
           <ul className="mt-4 space-y-3 text-sm text-hueso/80">
             {numeroWhatsApp && (
               <li>

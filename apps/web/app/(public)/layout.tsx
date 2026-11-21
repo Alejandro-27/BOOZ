@@ -9,7 +9,7 @@ export default async function LayoutPublico({ children }: { children: ReactNode 
   return (
     <div className="flex min-h-dvh flex-col">
       <Navbar
-        nombreTienda={configuracion?.name ?? "Zapatería Elegante"}
+        nombreTienda={configuracion?.name ?? "BOOZ"}
         whatsapp={configuracion?.whatsapp ?? null}
       />
       <main className="flex-1">{children}</main>

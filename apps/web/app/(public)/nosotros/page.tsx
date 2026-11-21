@@ -14,7 +14,7 @@ export default async function NosotrosPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:py-20">
-      <p className="text-xs uppercase tracking-[0.3em] text-cuero">Nosotros</p>
+      <p className="text-sm font-medium text-cuero">Nosotros</p>
       <h1 className="mt-3 font-display text-3xl leading-tight sm:text-5xl">
         {nombreTienda}, calzado con carácter desde {ciudad}
       </h1>
@@ -26,7 +26,7 @@ export default async function NosotrosPage() {
           un buen par de zapatos aporta.
         </p>
         <p>
-          Diseñado y entregado desde {ciudad}, trabajamos con pieles de calidad y proveedores de
+          Desde {ciudad}, trabajamos con pieles de calidad y proveedores de
           confianza. Cada par pasa por una revisión antes de llegar a tus manos, porque los
           detalles son los que hacen la diferencia entre un zapato bonito y un zapato que quieres
           usar todos los días.
@@ -37,8 +37,8 @@ export default async function NosotrosPage() {
         </p>
       </div>
 
-      <div className="mt-12 grid gap-8 border-t border-carbon/10 pt-10 sm:grid-cols-3">
-        <div>
+      <div className="mt-12 grid gap-8 border-t border-carbon/10 pt-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="lg:col-span-2">
           <p className="font-display text-xl">Selección cuidada</p>
           <p className="mt-2 text-sm text-carbon/65">
             Pocos modelos, bien elegidos. Preferimos calidad sobre cantidad.

@@ -53,7 +53,7 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
               <Link
                 href={enlace.href}
                 className={cn(
-                  "text-xs uppercase tracking-[0.2em] transition-colors hover:text-cuero",
+                  "text-sm font-medium transition-colors hover:text-cuero",
                   ruta === enlace.href ? "text-cuero" : "text-carbon/70",
                 )}
               >
@@ -98,7 +98,7 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
                   href={enlace.href}
                   onClick={() => setAbierto(false)}
                   className={cn(
-                    "block py-3 text-sm uppercase tracking-[0.2em]",
+                    "block py-3 text-sm font-medium",
                     ruta === enlace.href ? "text-cuero" : "text-carbon/80",
                   )}
                 >

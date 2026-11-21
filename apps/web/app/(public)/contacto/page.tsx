@@ -13,7 +13,7 @@ export default async function ContactoPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:py-20">
-      <p className="text-xs uppercase tracking-[0.3em] text-cuero">Contacto</p>
+      <p className="text-sm font-medium text-cuero">Contacto</p>
       <h1 className="mt-3 font-display text-3xl leading-tight sm:text-5xl">
         Estamos para ayudarte
       </h1>
@@ -31,7 +31,7 @@ export default async function ContactoPage() {
           >
             <MessageCircle className="mt-0.5 size-5 shrink-0 text-cuero" aria-hidden />
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-carbon/50">WhatsApp</p>
+              <p className="text-xs font-medium text-carbon/50">WhatsApp</p>
               <p className="mt-1 text-sm font-medium">{configuracion?.whatsapp}</p>
             </div>
           </a>
@@ -44,7 +44,7 @@ export default async function ContactoPage() {
           >
             <Mail className="mt-0.5 size-5 shrink-0 text-cuero" aria-hidden />
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-carbon/50">Email</p>
+              <p className="text-xs font-medium text-carbon/50">Email</p>
               <p className="mt-1 text-sm font-medium">{configuracion.email}</p>
             </div>
           </a>
@@ -59,7 +59,7 @@ export default async function ContactoPage() {
           >
             <AtSign className="mt-0.5 size-5 shrink-0 text-cuero" aria-hidden />
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-carbon/50">Instagram</p>
+              <p className="text-xs font-medium text-carbon/50">Instagram</p>
               <p className="mt-1 text-sm font-medium">{configuracion.instagram}</p>
             </div>
           </a>
@@ -69,7 +69,7 @@ export default async function ContactoPage() {
           <div className="flex items-start gap-3 border border-carbon/10 p-5">
             <MapPin className="mt-0.5 size-5 shrink-0 text-cuero" aria-hidden />
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-carbon/50">Ubicación</p>
+              <p className="text-xs font-medium text-carbon/50">Ubicación</p>
               <p className="mt-1 text-sm font-medium">
                 {[configuracion?.address, configuracion?.city].filter(Boolean).join(", ")}
               </p>
