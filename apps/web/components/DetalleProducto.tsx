@@ -75,7 +75,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
 
       <div>
         {producto.category && (
-          <p className="text-xs uppercase tracking-[0.25em] text-cuero">
+          <p className="text-xs uppercase tracking-[0.25em] text-oxblood">
             {producto.category.name}
           </p>
         )}
@@ -87,7 +87,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
               <span className="text-2xl font-semibold">
                 {formatearPrecio(producto.sale_price)}
               </span>
-              <span className="text-base text-carbon/50 line-through">
+              <span className="text-base text-pizarra/80 line-through">
                 {formatearPrecio(producto.price)}
               </span>
               {descuento !== null && (
@@ -107,7 +107,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
 
         {producto.sizes.length > 0 && (
           <div className="mt-8">
-            <p className="text-xs uppercase tracking-[0.2em] text-cuero">Talla</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-oxblood">Talla</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {producto.sizes.map((tallaDisponible) => (
                 <button
@@ -133,7 +133,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
 
         {producto.colors.length > 0 && (
           <div className="mt-6">
-            <p className="text-xs uppercase tracking-[0.2em] text-cuero">Color</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-oxblood">Color</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {producto.colors.map((colorDisponible) => (
                 <button
@@ -172,13 +172,13 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
             urlBase={URL_SITIO}
             deshabilitado={agotado}
           />
-          <p className="mt-3 text-xs text-carbon/50">
+          <p className="mt-3 text-xs text-pizarra/80">
             Te responderemos por WhatsApp para confirmar disponibilidad y envío.
           </p>
         </div>
 
         {producto.material && (
-          <p className="mt-6 text-sm text-carbon/70">
+          <p className="mt-6 text-sm text-pizarra/80">
             <span className="font-semibold">Material:</span> {producto.material}
           </p>
         )}

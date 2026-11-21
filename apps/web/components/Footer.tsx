@@ -27,7 +27,7 @@ export function Footer({ configuracion }: Props) {
         </div>
 
         <div>
-          <p className="text-sm font-medium text-dorado">Navegación</p>
+          <p className="text-sm font-medium text-oxblood">Navegación</p>
           <ul className="mt-4 space-y-2 text-sm text-hueso/80">
             <li>
               <Link href="/catalogo" className="transition-colors hover:text-dorado">
@@ -48,7 +48,7 @@ export function Footer({ configuracion }: Props) {
         </div>
 
         <div>
-          <p className="text-sm font-medium text-dorado">Contacto</p>
+          <p className="text-sm font-medium text-oxblood">Contacto</p>
           <ul className="mt-4 space-y-3 text-sm text-hueso/80">
             {numeroWhatsApp && (
               <li>
@@ -56,7 +56,7 @@ export function Footer({ configuracion }: Props) {
                   href={`https://wa.me/${numeroWhatsApp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 transition-colors hover:text-dorado"
+                  className="flex items-center gap-2 transition-colors hover:text-oxblood"
                 >
                   <MessageCircle className="size-4" aria-hidden /> WhatsApp
                 </a>
@@ -66,7 +66,7 @@ export function Footer({ configuracion }: Props) {
               <li>
                 <a
                   href={`mailto:${configuracion.email}`}
-                  className="flex items-center gap-2 transition-colors hover:text-dorado"
+                  className="flex items-center gap-2 transition-colors hover:text-oxblood"
                 >
                   <Mail className="size-4" aria-hidden /> {configuracion.email}
                 </a>
@@ -78,7 +78,7 @@ export function Footer({ configuracion }: Props) {
                   href={`https://instagram.com/${configuracion.instagram.replace(/^@/, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 transition-colors hover:text-dorado"
+                  className="flex items-center gap-2 transition-colors hover:text-oxblood"
                 >
                   <AtSign className="size-4" aria-hidden /> {configuracion.instagram}
                 </a>

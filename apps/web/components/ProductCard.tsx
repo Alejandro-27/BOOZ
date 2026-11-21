@@ -57,7 +57,7 @@ export function ProductCard({ producto }: Props) {
 
         <div className="mt-4 space-y-1">
           {producto.category && (
-            <p className="text-[11px] uppercase tracking-[0.2em] text-cuero">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-oxblood">
               {producto.category.name}
             </p>
           )}
@@ -68,7 +68,7 @@ export function ProductCard({ producto }: Props) {
                 <span className="text-base font-semibold">
                   {formatearPrecio(producto.sale_price)}
                 </span>
-                <span className="text-sm text-carbon/50 line-through">
+                <span className="text-sm text-pizarra/80 line-through">
                   {formatearPrecio(producto.price)}
                 </span>
               </>

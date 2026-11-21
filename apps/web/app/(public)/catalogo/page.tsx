@@ -58,7 +58,7 @@ export default async function CatalogoPage({ searchParams }: Props) {
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
       <header>
-        <p className="text-xs uppercase tracking-[0.3em] text-cuero">Catálogo</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-oxblood">Catálogo</p>
         <h1 className="mt-2 font-display text-3xl sm:text-4xl">Calzado de vestir</h1>
         <p className="mt-3 max-w-xl text-sm text-carbon/60">
           Filtra por categoría, talla, color y precio para encontrar tu próximo par.
@@ -72,7 +72,7 @@ export default async function CatalogoPage({ searchParams }: Props) {
 
         <section aria-label="Productos">
           {error ? (
-            <p className="border border-cuero/30 bg-cuero/5 px-4 py-3 text-sm text-cuero">
+            <p className="border border-oxblood/30 bg-oxblood/5 px-4 py-3 text-sm text-oxblood">
               {error}
             </p>
           ) : productos.length === 0 ? (
@@ -84,7 +84,7 @@ export default async function CatalogoPage({ searchParams }: Props) {
             </div>
           ) : (
             <>
-              <p className="mb-6 text-xs uppercase tracking-[0.2em] text-carbon/50">
+              <p className="mb-6 text-xs uppercase tracking-[0.2em] text-pizarra/80">
                 {productos.length} {productos.length === 1 ? "modelo" : "modelos"}
               </p>
               <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">

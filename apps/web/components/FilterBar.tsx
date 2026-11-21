@@ -59,7 +59,7 @@ export function FilterBar({ categorias }: Props) {
         className={cn("mt-4 space-y-8 lg:mt-0", abierto ? "block" : "hidden lg:block")}
       >
         <div>
-          <label htmlFor="filtro-categoria" className="text-xs uppercase tracking-[0.2em] text-cuero">
+          <label htmlFor="filtro-categoria" className="text-xs uppercase tracking-[0.2em] text-oxblood">
             Categoría
           </label>
           <select
@@ -80,7 +80,7 @@ export function FilterBar({ categorias }: Props) {
         </div>
 
         <div>
-          <label htmlFor="filtro-talla" className="text-xs uppercase tracking-[0.2em] text-cuero">
+          <label htmlFor="filtro-talla" className="text-xs uppercase tracking-[0.2em] text-oxblood">
             Talla
           </label>
           <select
@@ -99,7 +99,7 @@ export function FilterBar({ categorias }: Props) {
         </div>
 
         <div>
-          <label htmlFor="filtro-color" className="text-xs uppercase tracking-[0.2em] text-cuero">
+          <label htmlFor="filtro-color" className="text-xs uppercase tracking-[0.2em] text-oxblood">
             Color
           </label>
           <select
@@ -118,7 +118,7 @@ export function FilterBar({ categorias }: Props) {
         </div>
 
         <form onSubmit={aplicarPrecio}>
-          <p className="text-xs uppercase tracking-[0.2em] text-cuero">Precio (MXN)</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-oxblood">Precio (MXN)</p>
           <div className="mt-2 flex items-center gap-2">
             <input
               type="number"
@@ -154,7 +154,7 @@ export function FilterBar({ categorias }: Props) {
           type="button"
           onClick={limpiar}
           disabled={!hayFiltros}
-          className="w-full text-xs uppercase tracking-[0.2em] text-cuero underline-offset-4 hover:underline disabled:cursor-not-allowed disabled:text-carbon/30 disabled:no-underline"
+          className="w-full text-xs uppercase tracking-[0.2em] text-oxblood underline-offset-4 hover:underline disabled:cursor-not-allowed disabled:text-carbon/30 disabled:no-underline"
         >
           Limpiar filtros
         </button>

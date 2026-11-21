@@ -13,7 +13,7 @@ export default async function ContactoPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:py-20">
-      <p className="text-sm font-medium text-cuero">Contacto</p>
+      <p className="text-sm font-medium text-oxblood">Contacto</p>
       <h1 className="mt-3 font-display text-3xl leading-tight sm:text-5xl">
         Estamos para ayudarte
       </h1>
@@ -29,9 +29,9 @@ export default async function ContactoPage() {
             rel="noopener noreferrer"
             className="flex items-start gap-3 border border-carbon/10 p-5 transition-colors hover:border-cuero"
           >
-            <MessageCircle className="mt-0.5 size-5 shrink-0 text-cuero" aria-hidden />
+            <MessageCircle className="mt-0.5 size-5 shrink-0 text-oxblood" aria-hidden />
             <div>
-              <p className="text-xs font-medium text-carbon/50">WhatsApp</p>
+              <p className="text-xs font-medium text-pizarra/80">WhatsApp</p>
               <p className="mt-1 text-sm font-medium">{configuracion?.whatsapp}</p>
             </div>
           </a>
@@ -42,9 +42,9 @@ export default async function ContactoPage() {
             href={`mailto:${configuracion.email}`}
             className="flex items-start gap-3 border border-carbon/10 p-5 transition-colors hover:border-cuero"
           >
-            <Mail className="mt-0.5 size-5 shrink-0 text-cuero" aria-hidden />
+            <Mail className="mt-0.5 size-5 shrink-0 text-oxblood" aria-hidden />
             <div>
-              <p className="text-xs font-medium text-carbon/50">Email</p>
+              <p className="text-xs font-medium text-pizarra/80">Email</p>
               <p className="mt-1 text-sm font-medium">{configuracion.email}</p>
             </div>
           </a>
@@ -57,9 +57,9 @@ export default async function ContactoPage() {
             rel="noopener noreferrer"
             className="flex items-start gap-3 border border-carbon/10 p-5 transition-colors hover:border-cuero"
           >
-            <AtSign className="mt-0.5 size-5 shrink-0 text-cuero" aria-hidden />
+            <AtSign className="mt-0.5 size-5 shrink-0 text-oxblood" aria-hidden />
             <div>
-              <p className="text-xs font-medium text-carbon/50">Instagram</p>
+              <p className="text-xs font-medium text-pizarra/80">Instagram</p>
               <p className="mt-1 text-sm font-medium">{configuracion.instagram}</p>
             </div>
           </a>
@@ -67,9 +67,9 @@ export default async function ContactoPage() {
 
         {(configuracion?.address || configuracion?.city) && (
           <div className="flex items-start gap-3 border border-carbon/10 p-5">
-            <MapPin className="mt-0.5 size-5 shrink-0 text-cuero" aria-hidden />
+            <MapPin className="mt-0.5 size-5 shrink-0 text-oxblood" aria-hidden />
             <div>
-              <p className="text-xs font-medium text-carbon/50">Ubicación</p>
+              <p className="text-xs font-medium text-pizarra/80">Ubicación</p>
               <p className="mt-1 text-sm font-medium">
                 {[configuracion?.address, configuracion?.city].filter(Boolean).join(", ")}
               </p>
@@ -80,7 +80,7 @@ export default async function ContactoPage() {
 
       <section className="mt-12 border-t border-carbon/10 pt-10">
         <h2 className="font-display text-2xl">Políticas de compra</h2>
-        <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-carbon/70">
+        <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-pizarra/80">
           {configuracion?.policies ??
             "Envíos a todo el país en 3 a 5 días hábiles. Cambios sin costo dentro de los primeros 30 días. Garantía de 90 días por defectos de fabricación."}
         </p>

@@ -33,39 +33,42 @@ export default async function InicioPage() {
 
   return (
     <>
-      {/* Hero editorial asimétrico: texto a la izquierda, aire a la derecha */}
-      <section className="relative overflow-hidden bg-carbon text-hueso py-20 sm:py-28">
-        <div className="relative mx-auto max-w-6xl px-4">
-          <div className="grid max-w-5xl gap-8 sm:grid-cols-2 sm:items-center">
+      {/* Hero editorial asimétrico: texto izquierda, aire a la derecha */}
+      <section className="relative overflow-hidden bg-carbon text-hueso py-24 sm:py-32">
+        <div className="relative mx-auto max-w-6xl px-6">
+          <div className="grid max-w-5xl gap-12 sm:grid-cols-2 sm:items-start">
             <div className="mt-4 sm:mt-0">
-              <p className="text-xs font-semibold tracking-[0.15em] text-dorado">booz</p>
-              <h1 className="mt-3 font-display text-5xl leading-[1.05] sm:text-6xl">
+              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-oxblood">
+                booz
+              </p>
+              <h1 className="mt-3 font-display text-5xl leading-[1.05] sm:text-6xl text-hueso">
                 Calzado masculino de vestir, hecho con carácter
               </h1>
-              <p className="mt-5 max-w-xl text-lg leading-relaxed text-hueso/80">
+              <span className="block mt-2 h-[1px] w-20 bg-laton"></span>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-pizarra/90">
                 {configuracion?.slogan ??
                   "Calzado masculino de vestir, hecho con carácter. Diseñado en Arauca, Colombia."}
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                 <Link
                   href="/catalogo"
-                  className="bg-dorado px-7 py-3 text-sm font-medium text-carbon hover:bg-dorado/90 transition-colors"
+                  className="bg-oxblood px-7 py-3 text-sm font-medium text-hueso hover:bg-oxblood-oscuro transition-colors"
                 >
                   Ver catálogo
                 </Link>
                 <Link
                   href="/nosotros"
-                  className="border border-hueso/40 px-7 py-3 text-sm font-medium text-hueso hover:border-hueso transition-colors"
+                  className="border border-pizarra/40 px-7 py-3 text-sm font-medium text-hueso hover:border-hueso transition-colors"
                 >
                   Nuestra historia
                 </Link>
               </div>
             </div>
 
-            {/* Detalle firma: línea fina de latón + "N.º" */}
+            {/* Detalle firma: línea de latón + N.º alineado a la derecha */}
             <div className="hidden sm:flex flex-col items-end gap-2">
-              <span className="w-20 h-[1px] bg-dorado/60"></span>
-              <p className="text-[10px] font-display tracking-[0.2em] text-dorado">
+              <span className="w-24 h-[1px] bg-laton/60"></span>
+              <p className="text-[10px] font-display tracking-[0.2em] uppercase text-laton/70">
                 N.º 001 · Arauca
               </p>
             </div>
@@ -73,18 +76,20 @@ export default async function InicioPage() {
         </div>
       </section>
 
-      {/* Beneficios: una sola fila editorial, no tarjetas idénticas */}
-      <section className="border-b border-carbon/10 bg-hueso py-12 sm:py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <p className="text-xs font-semibold tracking-[0.15em] text-cuero">¿Por qué BOOZ?</p>
-          <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:gap-12">
+      {/* Beneficios: línea horizontal editorial, no tarjetas idénticas */}
+      <section className="border-b border-carbon/10 bg-hueso py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-oxblood">
+            ¿Por qué BOOZ?
+          </p>
+          <div className="mt-6 flex flex-col gap-8 sm:flex-row sm:gap-12">
             {BENEFICIOS.map(({ titulo, descripcion }, i) => (
               <div key={titulo} className="max-w-sm">
-                <p className="text-[10px] font-display tracking-[0.2em] text-dorado/80">
+                <p className="text-[10px] font-display tracking-[0.2em] uppercase text-oxblood/70">
                   {i + 1}
                 </p>
                 <p className="mt-2 font-display text-xl text-carbon">{titulo}</p>
-                <p className="mt-1.5 text-sm text-hueso/70 leading-relaxed">
+                <p className="mt-1.5 text-sm text-pizarra/80 leading-relaxed">
                   {descripcion}
                 </p>
               </div>
@@ -93,24 +98,28 @@ export default async function InicioPage() {
         </div>
       </section>
 
-      {/* Modelos destacados: sin cabecera simétrica */}
+      {/* Modelos destacados */}
       {destacados.length > 0 && (
-        <section className="py-16 sm:py-20">
-          <div className="mx-auto max-w-6xl px-4">
-            <div className="flex flex-wrap items-end justify-between gap-4 mb-12 sm:mb-16">
+        <section className="py-20 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="flex flex-wrap items-end justify-between gap-4 mb-14 sm:mb-20">
               <div>
-                <p className="text-[10px] font-display tracking-[0.2em] text-cuero">Selección</p>
-                <h2 className="mt-2 font-display text-3xl sm:text-4xl">Modelos destacados</h2>
+                <p className="text-[10px] font-display tracking-[0.2em] uppercase text-oxblood">
+                  Selección
+                </p>
+                <h2 className="mt-2 font-display text-3xl sm:text-4xl text-hueso">
+                  Modelos destacados
+                </h2>
               </div>
               <Link
                 href="/catalogo"
-                className="text-[10px] font-display tracking-[0.15em] text-cuero hover:underline underline-offset-4"
+                className="text-[10px] font-display tracking-[0.15em] uppercase text-oxblood hover:underline underline-offset-4"
               >
                 Ver todo el catálogo
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
               {destacados.map((producto) => (
                 <ProductCard key={producto.id} producto={producto} />
               ))}
@@ -120,11 +129,11 @@ export default async function InicioPage() {
       )}
 
       {/* CTA final */}
-      <section className="bg-carbon text-hueso py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl px-4">
+      <section className="bg-carbon text-hueso py-20 sm:py-24">
+        <div className="mx-auto max-w-5xl px-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 className="font-display text-2xl sm:text-3xl">
+              <h2 className="font-display text-2xl sm:text-3xl text-hueso">
                 ¿Buscas un modelo en especial?
               </h2>
               <p className="mt-2 text-sm text-hueso/70">
@@ -133,7 +142,7 @@ export default async function InicioPage() {
             </div>
             <Link
               href="/contacto"
-              className="bg-dorado px-7 py-3 text-sm font-medium text-carbon hover:bg-dorado/90 transition-colors"
+              className="bg-oxblood px-7 py-3 text-sm font-medium text-hueso hover:bg-oxblood-oscuro transition-colors"
             >
               Contáctanos
             </Link>

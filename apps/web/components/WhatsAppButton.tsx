@@ -27,7 +27,7 @@ export function WhatsAppButton({
     return (
       <span
         className={cn(
-          "inline-flex w-full items-center justify-center gap-2 bg-carbon/10 px-6 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-carbon/50",
+          "inline-flex w-full items-center justify-center gap-2 bg-carbon-suave px-6 py-4 text-sm font-semibold text-pizarra/60",
           className,
         )}
       >
@@ -44,11 +44,11 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "inline-flex w-full items-center justify-center gap-2 bg-dorado px-6 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-carbon transition-colors hover:bg-dorado/90",
+        "inline-flex w-full items-center justify-center gap-2 bg-oxblood px-6 py-4 text-sm font-semibold text-hueso hover:bg-oxblood-oscuro transition-colors",
         className,
       )}
     >
-      <MessageCircle className="size-5" aria-hidden />
+      <MessageCircle className="size-4" strokeWidth={1.5} aria-hidden />
       Comprar por WhatsApp
     </a>
   );

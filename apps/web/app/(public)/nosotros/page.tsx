@@ -14,7 +14,7 @@ export default async function NosotrosPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:py-20">
-      <p className="text-sm font-medium text-cuero">Nosotros</p>
+      <p className="text-sm font-medium text-oxblood">Nosotros</p>
       <h1 className="mt-3 font-display text-3xl leading-tight sm:text-5xl">
         {nombreTienda}, calzado con carácter desde {ciudad}
       </h1>

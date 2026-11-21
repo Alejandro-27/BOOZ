@@ -2,11 +2,14 @@
 
 /* Paleta y tipografías de la marca (Tailwind 4 genera utilidades desde @theme) */
 @theme {
-  --color-carbon: #1a1a1a;
+  --color-carbon: #0f1115;
   --color-carbon-suave: #2a2a2a;
-  --color-hueso: #f7f4ef;
+  --color-hueso: #fafaf9;
   --color-cuero: #8b5e3c;
-  --color-dorado: #d4af37;
+  --color-oxblood: #722f37;
+  --color-oxblood-oscuro: #5a252c;
+  --color-laton: #c5a059;
+  --color-pizarra: #475569;
 
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;

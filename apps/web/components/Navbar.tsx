@@ -53,8 +53,8 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
               <Link
                 href={enlace.href}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-cuero",
-                  ruta === enlace.href ? "text-cuero" : "text-carbon/70",
+                  "text-sm font-medium transition-colors hover:text-oxblood",
+                  ruta === enlace.href ? "text-oxblood" : "text-pizarra/80",
                 )}
               >
                 {enlace.etiqueta}
@@ -70,7 +70,7 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Escríbenos por WhatsApp"
-              className="rounded-full p-2 text-carbon transition-colors hover:bg-carbon/5 hover:text-cuero"
+              className="rounded-full p-2 text-carbon transition-colors hover:bg-carbon-suave hover:text-oxblood"
             >
               <MessageCircle className="size-5" aria-hidden />
             </a>
@@ -99,7 +99,7 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
                   onClick={() => setAbierto(false)}
                   className={cn(
                     "block py-3 text-sm font-medium",
-                    ruta === enlace.href ? "text-cuero" : "text-carbon/80",
+                    ruta === enlace.href ? "text-oxblood" : "text-pizarra/80",
                   )}
                 >
                   {enlace.etiqueta}
