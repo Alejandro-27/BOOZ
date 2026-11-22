@@ -17,8 +17,11 @@ export function ProductCard({ producto }: Props) {
       : null;
 
   return (
-    <article className="group">
-      <Link href={`/producto/${producto.slug}`} className="block">
+    <article className="group overflow-hidden rounded-sm border border-stone-200 bg-tarjeta shadow-sm transition-all duration-300 hover:shadow-md">
+      <Link
+        href={`/producto/${producto.slug}`}
+        className="block transition-transform duration-200 active:scale-[0.98]"
+      >
         <div className="relative aspect-[4/5] overflow-hidden bg-carbon/5">
           {imagen ? (
             <>
@@ -69,7 +72,7 @@ export function ProductCard({ producto }: Props) {
           </div>
         </div>
 
-        <div className="mt-4 space-y-1">
+        <div className="space-y-1 p-4">
           {producto.category && (
             <p className="text-[11px] font-medium text-oxblood">{producto.category.name}</p>
           )}
@@ -77,7 +80,7 @@ export function ProductCard({ producto }: Props) {
           <div className="flex items-baseline gap-2">
             {producto.sale_price !== null ? (
               <>
-                <span className="text-base font-semibold">
+                <span className="text-base font-semibold text-oxblood">
                   {formatearPrecio(producto.sale_price)}
                 </span>
                 <span className="text-sm text-pizarra line-through">
@@ -85,7 +88,9 @@ export function ProductCard({ producto }: Props) {
                 </span>
               </>
             ) : (
-              <span className="text-base font-semibold">{formatearPrecio(producto.price)}</span>
+              <span className="text-base font-semibold text-oxblood">
+                {formatearPrecio(producto.price)}
+              </span>
             )}
           </div>
         </div>

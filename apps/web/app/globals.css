@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
-/* Paleta "Editorial Cálido" (Tailwind 4 genera utilidades desde @theme) */
+/* Paleta "Bone & Espresso" (Tailwind 4 genera utilidades desde @theme) */
 @theme {
-  --color-hueso: #fdfcf8; /* fondo */
-  --color-carbon: #1c1917; /* texto y bloques oscuros */
+  --color-hueso: #f5f5f0; /* fondo base */
+  --color-tarjeta: #fafaf8; /* fondo secundario: tarjetas y bloques */
+  --color-carbon: #1c1917; /* espresso: texto y fondos oscuros */
   --color-carbon-suave: #292524;
-  --color-oxblood: #9a3412; /* acento dinámico */
-  --color-oxblood-oscuro: #7c2d12;
-  --color-cuero: #7c2d12; /* antetítulos y bordes activos */
-  --color-laton: #b4975a; /* acento fino: solo líneas y fondos */
-  --color-dorado: #b4975a; /* alias histórico de latón */
+  --color-oxblood: #78350f; /* cognac: CTA, precios, acentos */
+  --color-oxblood-oscuro: #5c2809;
+  --color-cuero: #78350f;
+  --color-laton: #a8a29e; /* costuras y líneas finas */
+  --color-dorado: #a8a29e; /* alias histórico de latón */
   --color-pizarra: #57534e; /* texto de cuerpo */
 
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
@@ -55,6 +56,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+}
+
+@media print {
   .reveal {
     animation: none;
   }
