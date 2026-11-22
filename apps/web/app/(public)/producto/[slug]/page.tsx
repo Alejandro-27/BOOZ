@@ -59,13 +59,13 @@ export default async function ProductoPage({ params }: Props) {
   const configuracion = await obtenerConfiguracionSegura();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
-      <nav aria-label="Ruta de navegación" className="mb-8 text-xs uppercase tracking-[0.2em]">
-        <Link href="/catalogo" className="text-pizarra/80 transition-colors hover:text-oxblood">
+    <div className="mx-auto max-w-6xl px-6 py-10 sm:py-14">
+      <nav aria-label="Ruta de navegación" className="mb-8 text-sm">
+        <Link href="/catalogo" className="text-pizarra transition-colors hover:text-oxblood">
           Catálogo
         </Link>
         <span className="mx-2 text-carbon/30">/</span>
-        <span className="text-pizarra/80">{producto.name}</span>
+        <span className="text-pizarra">{producto.name}</span>
       </nav>
 
       <DetalleProducto producto={producto} whatsapp={configuracion?.whatsapp ?? ""} />

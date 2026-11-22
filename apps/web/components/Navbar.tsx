@@ -34,7 +34,7 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
       >
         <Link
           href="/"
-          className="flex items-center gap-2 font-display tracking-wide"
+          className="flex items-center gap-2.5"
           onClick={() => setAbierto(false)}
         >
           <Image
@@ -42,9 +42,8 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
             alt="BOOZ"
             width={32}
             height={32}
-            className="rounded"
-          />
-          <span className="text-xl font-display">{nombreTienda}</span>
+            />
+          <span className="font-display text-xl tracking-tight">{nombreTienda}</span>
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">
@@ -54,7 +53,7 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
                 href={enlace.href}
                 className={cn(
                   "text-sm font-medium transition-colors hover:text-oxblood",
-                  ruta === enlace.href ? "text-oxblood" : "text-pizarra/80",
+                  ruta === enlace.href ? "text-oxblood" : "text-pizarra",
                 )}
               >
                 {enlace.etiqueta}
@@ -70,9 +69,9 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Escríbenos por WhatsApp"
-              className="rounded-full p-2 text-carbon transition-colors hover:bg-carbon-suave hover:text-oxblood"
+              className="rounded-full p-2 text-carbon transition-colors hover:bg-carbon/5 hover:text-oxblood"
             >
-              <MessageCircle className="size-5" aria-hidden />
+              <MessageCircle className="size-5" strokeWidth={1.5} aria-hidden />
             </a>
           )}
 
@@ -84,7 +83,11 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
             aria-controls="menu-movil"
             aria-label={abierto ? "Cerrar menú" : "Abrir menú"}
           >
-            {abierto ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
+            {abierto ? (
+              <X className="size-5" strokeWidth={1.5} aria-hidden />
+            ) : (
+              <Menu className="size-5" strokeWidth={1.5} aria-hidden />
+            )}
           </button>
         </div>
       </nav>
@@ -99,7 +102,7 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
                   onClick={() => setAbierto(false)}
                   className={cn(
                     "block py-3 text-sm font-medium",
-                    ruta === enlace.href ? "text-oxblood" : "text-pizarra/80",
+                    ruta === enlace.href ? "text-oxblood" : "text-pizarra",
                   )}
                 >
                   {enlace.etiqueta}

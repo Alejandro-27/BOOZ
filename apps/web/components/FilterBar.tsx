@@ -47,7 +47,7 @@ export function FilterBar({ categorias }: Props) {
       <button
         type="button"
         onClick={() => setAbierto((valor) => !valor)}
-        className="w-full border border-carbon/15 px-4 py-3 text-xs uppercase tracking-[0.2em] lg:hidden"
+        className="w-full border border-carbon/15 px-4 py-3 text-sm lg:hidden"
         aria-expanded={abierto}
         aria-controls="panel-filtros"
       >
@@ -59,7 +59,7 @@ export function FilterBar({ categorias }: Props) {
         className={cn("mt-4 space-y-8 lg:mt-0", abierto ? "block" : "hidden lg:block")}
       >
         <div>
-          <label htmlFor="filtro-categoria" className="text-xs uppercase tracking-[0.2em] text-oxblood">
+          <label htmlFor="filtro-categoria" className="text-sm font-medium text-carbon">
             Categoría
           </label>
           <select
@@ -80,7 +80,7 @@ export function FilterBar({ categorias }: Props) {
         </div>
 
         <div>
-          <label htmlFor="filtro-talla" className="text-xs uppercase tracking-[0.2em] text-oxblood">
+          <label htmlFor="filtro-talla" className="text-sm font-medium text-carbon">
             Talla
           </label>
           <select
@@ -99,7 +99,7 @@ export function FilterBar({ categorias }: Props) {
         </div>
 
         <div>
-          <label htmlFor="filtro-color" className="text-xs uppercase tracking-[0.2em] text-oxblood">
+          <label htmlFor="filtro-color" className="text-sm font-medium text-carbon">
             Color
           </label>
           <select
@@ -118,7 +118,7 @@ export function FilterBar({ categorias }: Props) {
         </div>
 
         <form onSubmit={aplicarPrecio}>
-          <p className="text-xs uppercase tracking-[0.2em] text-oxblood">Precio (MXN)</p>
+          <p className="text-sm font-medium text-carbon">Precio (COP)</p>
           <div className="mt-2 flex items-center gap-2">
             <input
               type="number"
@@ -144,7 +144,7 @@ export function FilterBar({ categorias }: Props) {
           </div>
           <button
             type="submit"
-            className="mt-3 w-full border border-carbon px-4 py-2 text-xs uppercase tracking-[0.2em] transition-colors hover:bg-carbon hover:text-hueso"
+            className="mt-3 w-full border border-carbon px-4 py-2.5 text-sm transition-colors hover:bg-carbon hover:text-hueso"
           >
             Aplicar precio
           </button>
@@ -154,7 +154,7 @@ export function FilterBar({ categorias }: Props) {
           type="button"
           onClick={limpiar}
           disabled={!hayFiltros}
-          className="w-full text-xs uppercase tracking-[0.2em] text-oxblood underline-offset-4 hover:underline disabled:cursor-not-allowed disabled:text-carbon/30 disabled:no-underline"
+          className="w-full text-sm text-oxblood underline-offset-4 hover:underline disabled:cursor-not-allowed disabled:text-carbon/30 disabled:no-underline"
         >
           Limpiar filtros
         </button>

@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
-/* Paleta y tipografías de la marca (Tailwind 4 genera utilidades desde @theme) */
+/* Paleta "Editorial Cálido" (Tailwind 4 genera utilidades desde @theme) */
 @theme {
-  --color-carbon: #0f1115;
-  --color-carbon-suave: #2a2a2a;
-  --color-hueso: #fafaf9;
-  --color-cuero: #8b5e3c;
-  --color-oxblood: #722f37;
-  --color-oxblood-oscuro: #5a252c;
-  --color-laton: #c5a059;
-  --color-pizarra: #475569;
+  --color-hueso: #fdfcf8; /* fondo */
+  --color-carbon: #1c1917; /* texto y bloques oscuros */
+  --color-carbon-suave: #292524;
+  --color-oxblood: #9a3412; /* acento dinámico */
+  --color-oxblood-oscuro: #7c2d12;
+  --color-cuero: #7c2d12; /* antetítulos y bordes activos */
+  --color-laton: #b4975a; /* acento fino: solo líneas y fondos */
+  --color-dorado: #b4975a; /* alias histórico de latón */
+  --color-pizarra: #57534e; /* texto de cuerpo */
 
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
@@ -27,7 +28,34 @@
 
   /* Foco visible para navegación con teclado */
   :focus-visible {
-    outline: 2px solid var(--color-cuero);
+    outline: 2px solid var(--color-oxblood);
     outline-offset: 2px;
+  }
+}
+
+/* Aparición al hacer scroll. Sin soporte de animation-timeline el contenido
+   simplemente se ve: el estado base nunca queda oculto. */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
   }
 }

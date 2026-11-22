@@ -73,41 +73,42 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
         )}
       </div>
 
-      <div>
+      <div className="lg:sticky lg:top-24 lg:self-start">
         {producto.category && (
-          <p className="text-xs uppercase tracking-[0.25em] text-oxblood">
-            {producto.category.name}
-          </p>
+          <p className="font-display text-sm text-oxblood">{producto.category.name}</p>
         )}
-        <h1 className="mt-2 font-display text-3xl leading-tight sm:text-4xl">{producto.name}</h1>
+        <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight text-carbon sm:text-5xl">
+          {producto.name}
+        </h1>
+        <span aria-hidden className="mt-5 block h-px w-6 bg-laton" />
 
         <div className="mt-4 flex flex-wrap items-baseline gap-3">
           {producto.sale_price !== null ? (
             <>
-              <span className="text-2xl font-semibold">
+              <span className="text-2xl font-medium text-carbon">
                 {formatearPrecio(producto.sale_price)}
               </span>
-              <span className="text-base text-pizarra/80 line-through">
+              <span className="text-base text-pizarra line-through">
                 {formatearPrecio(producto.price)}
               </span>
               {descuento !== null && (
-                <span className="bg-cuero px-2 py-1 text-[10px] font-semibold uppercase tracking-widest text-hueso">
+                <span className="bg-oxblood px-2 py-1 text-[10px] font-semibold text-hueso">
                   -{descuento}%
                 </span>
               )}
             </>
           ) : (
-            <span className="text-2xl font-semibold">{formatearPrecio(producto.price)}</span>
+            <span className="text-2xl font-medium text-carbon">{formatearPrecio(producto.price)}</span>
           )}
         </div>
 
-        <p className="mt-6 text-sm leading-relaxed text-carbon/75">
+        <p className="mt-6 text-base leading-relaxed text-pizarra">
           {producto.short_description}
         </p>
 
         {producto.sizes.length > 0 && (
           <div className="mt-8">
-            <p className="text-xs uppercase tracking-[0.2em] text-oxblood">Talla</p>
+            <p className="text-sm font-medium text-carbon">Talla</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {producto.sizes.map((tallaDisponible) => (
                 <button
@@ -133,7 +134,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
 
         {producto.colors.length > 0 && (
           <div className="mt-6">
-            <p className="text-xs uppercase tracking-[0.2em] text-oxblood">Color</p>
+            <p className="text-sm font-medium text-carbon">Color</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {producto.colors.map((colorDisponible) => (
                 <button
@@ -172,13 +173,13 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
             urlBase={URL_SITIO}
             deshabilitado={agotado}
           />
-          <p className="mt-3 text-xs text-pizarra/80">
+          <p className="mt-3 text-xs text-pizarra">
             Te responderemos por WhatsApp para confirmar disponibilidad y envío.
           </p>
         </div>
 
         {producto.material && (
-          <p className="mt-6 text-sm text-pizarra/80">
+          <p className="mt-6 text-sm text-pizarra">
             <span className="font-semibold">Material:</span> {producto.material}
           </p>
         )}
@@ -188,7 +189,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
             {producto.tags.map((etiqueta) => (
               <span
                 key={etiqueta}
-                className="border border-carbon/15 px-2 py-1 text-[11px] uppercase tracking-widest text-carbon/60"
+                className="border border-carbon/15 px-2 py-1 text-xs text-pizarra"
               >
                 {etiqueta}
               </span>
@@ -198,8 +199,8 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
 
         {producto.long_description && (
           <div className="mt-8 border-t border-carbon/10 pt-6">
-            <h2 className="font-display text-lg">Detalles</h2>
-            <p className="mt-2 text-sm leading-relaxed text-carbon/75">
+            <h2 className="font-display text-xl tracking-tight text-carbon">Detalles</h2>
+            <p className="mt-2 text-base leading-relaxed text-pizarra">
               {producto.long_description}
             </p>
           </div>

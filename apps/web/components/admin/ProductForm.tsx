@@ -195,7 +195,7 @@ export function ProductForm({ producto }: Props) {
 
         <div className="grid gap-4 sm:grid-cols-3">
           <Campo
-            etiqueta="Precio (MXN)"
+            etiqueta="Precio (COP)"
             htmlFor="price"
             error={errores.price?.message}
             ayuda="Ej: 1899.00"

@@ -27,7 +27,7 @@ export function WhatsAppButton({
     return (
       <span
         className={cn(
-          "inline-flex w-full items-center justify-center gap-2 bg-carbon-suave px-6 py-4 text-sm font-semibold text-pizarra/60",
+          "inline-flex w-full items-center justify-center gap-2 bg-carbon-suave px-6 py-4 text-sm font-semibold text-hueso/60",
           className,
         )}
       >

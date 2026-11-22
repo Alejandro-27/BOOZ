@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AtSign, Mail, MapPin, MessageCircle } from "lucide-react";
 import { obtenerConfiguracionSegura } from "@/lib/api";
+import { formatearUbicacion } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -12,12 +13,13 @@ export default async function ContactoPage() {
   const numeroWhatsApp = configuracion?.whatsapp.replace(/\D/g, "") ?? "";
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-14 sm:py-20">
-      <p className="text-sm font-medium text-oxblood">Contacto</p>
-      <h1 className="mt-3 font-display text-3xl leading-tight sm:text-5xl">
+    <div className="mx-auto max-w-4xl px-6 py-14 sm:py-20">
+      <p className="font-display text-sm text-oxblood">Contacto</p>
+      <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight text-carbon sm:text-5xl">
         Estamos para ayudarte
       </h1>
-      <p className="mt-4 max-w-xl text-sm text-carbon/65 sm:text-base">
+      <span aria-hidden className="mt-6 block h-px w-6 bg-laton" />
+      <p className="mt-6 max-w-xl text-base leading-relaxed text-pizarra">
         Escríbenos para consultar disponibilidad, tallas o el estado de tu pedido.
       </p>
 
@@ -29,10 +31,10 @@ export default async function ContactoPage() {
             rel="noopener noreferrer"
             className="flex items-start gap-3 border border-carbon/10 p-5 transition-colors hover:border-cuero"
           >
-            <MessageCircle className="mt-0.5 size-5 shrink-0 text-oxblood" aria-hidden />
+            <MessageCircle className="mt-0.5 size-5 shrink-0 text-oxblood" strokeWidth={1.5} aria-hidden />
             <div>
-              <p className="text-xs font-medium text-pizarra/80">WhatsApp</p>
-              <p className="mt-1 text-sm font-medium">{configuracion?.whatsapp}</p>
+              <p className="text-sm text-pizarra">WhatsApp</p>
+              <p className="mt-1 text-base font-medium text-carbon">{configuracion?.whatsapp}</p>
             </div>
           </a>
         )}
@@ -42,10 +44,10 @@ export default async function ContactoPage() {
             href={`mailto:${configuracion.email}`}
             className="flex items-start gap-3 border border-carbon/10 p-5 transition-colors hover:border-cuero"
           >
-            <Mail className="mt-0.5 size-5 shrink-0 text-oxblood" aria-hidden />
+            <Mail className="mt-0.5 size-5 shrink-0 text-oxblood" strokeWidth={1.5} aria-hidden />
             <div>
-              <p className="text-xs font-medium text-pizarra/80">Email</p>
-              <p className="mt-1 text-sm font-medium">{configuracion.email}</p>
+              <p className="text-sm text-pizarra">Email</p>
+              <p className="mt-1 text-base font-medium text-carbon">{configuracion.email}</p>
             </div>
           </a>
         )}
@@ -57,21 +59,21 @@ export default async function ContactoPage() {
             rel="noopener noreferrer"
             className="flex items-start gap-3 border border-carbon/10 p-5 transition-colors hover:border-cuero"
           >
-            <AtSign className="mt-0.5 size-5 shrink-0 text-oxblood" aria-hidden />
+            <AtSign className="mt-0.5 size-5 shrink-0 text-oxblood" strokeWidth={1.5} aria-hidden />
             <div>
-              <p className="text-xs font-medium text-pizarra/80">Instagram</p>
-              <p className="mt-1 text-sm font-medium">{configuracion.instagram}</p>
+              <p className="text-sm text-pizarra">Instagram</p>
+              <p className="mt-1 text-base font-medium text-carbon">{configuracion.instagram}</p>
             </div>
           </a>
         )}
 
         {(configuracion?.address || configuracion?.city) && (
           <div className="flex items-start gap-3 border border-carbon/10 p-5">
-            <MapPin className="mt-0.5 size-5 shrink-0 text-oxblood" aria-hidden />
+            <MapPin className="mt-0.5 size-5 shrink-0 text-oxblood" strokeWidth={1.5} aria-hidden />
             <div>
-              <p className="text-xs font-medium text-pizarra/80">Ubicación</p>
-              <p className="mt-1 text-sm font-medium">
-                {[configuracion?.address, configuracion?.city].filter(Boolean).join(", ")}
+              <p className="text-sm text-pizarra">Ubicación</p>
+              <p className="mt-1 text-base font-medium text-carbon">
+                {formatearUbicacion(configuracion?.address, configuracion?.city)}
               </p>
             </div>
           </div>
@@ -79,8 +81,8 @@ export default async function ContactoPage() {
       </div>
 
       <section className="mt-12 border-t border-carbon/10 pt-10">
-        <h2 className="font-display text-2xl">Políticas de compra</h2>
-        <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-pizarra/80">
+        <h2 className="font-display text-2xl tracking-tight text-carbon">Políticas de compra</h2>
+        <p className="mt-4 whitespace-pre-line text-base leading-relaxed text-pizarra">
           {configuracion?.policies ??
             "Envíos a todo el país en 3 a 5 días hábiles. Cambios sin costo dentro de los primeros 30 días. Garantía de 90 días por defectos de fabricación."}
         </p>

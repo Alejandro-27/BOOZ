@@ -70,7 +70,7 @@ create index if not exists idx_products_tags on public.products using gin (tags)
 -- -----------------------------------------------------------------------------
 create table if not exists public.store_config (
   id           integer primary key default 1 check (id = 1),
-  name         text not null default 'Mi Zapatería',
+  name         text not null default 'BOOZ',
   slogan       text not null default '',
   logo_url     text,
   whatsapp     text not null default '',
