@@ -33,12 +33,15 @@ export class ProductsRepository {
       consulta = consulta.lte("price", filtros.precio_max);
     }
     if (filtros.talla) {
-      // sizes es jsonb: contiene el string de la talla
-      consulta = consulta.contains("sizes", [filtros.talla]);
+      // jsonb necesita JSON literal: contains() serializa como {42} y falla.
+      consulta = consulta.filter("sizes", "cs", JSON.stringify([filtros.talla]));
     }
     if (filtros.color) {
-      // colors es jsonb: contiene un objeto con ese nombre de color
-      consulta = consulta.contains("colors", [{ name: filtros.color }]);
+      consulta = consulta.filter(
+        "colors",
+        "cs",
+        JSON.stringify([{ name: filtros.color }]),
+      );
     }
     if (filtros.categoria) {
       const categoriaId = await this.buscarCategoriaId(filtros.categoria);
@@ -153,10 +156,14 @@ export class ProductsRepository {
       consulta = consulta.lte("price", filtros.precio_max);
     }
     if (filtros.talla) {
-      consulta = consulta.contains("sizes", [filtros.talla]);
+      consulta = consulta.filter("sizes", "cs", JSON.stringify([filtros.talla]));
     }
     if (filtros.color) {
-      consulta = consulta.contains("colors", [{ name: filtros.color }]);
+      consulta = consulta.filter(
+        "colors",
+        "cs",
+        JSON.stringify([{ name: filtros.color }]),
+      );
     }
     if (filtros.categoria) {
       const categoriaId = await this.buscarCategoriaId(filtros.categoria);

@@ -11,13 +11,18 @@ interface Props {
 }
 
 export function FilterBar({ categorias }: Props) {
-  const [filtros, setFiltros] = useQueryStates({
-    categoria: parseAsString,
-    talla: parseAsString,
-    color: parseAsString,
-    precio_min: parseAsInteger,
-    precio_max: parseAsInteger,
-  });
+  // shallow: false hace que nuqs navegue por el App Router y el server
+  // component vuelva a leer searchParams; con shallow solo cambia la URL.
+  const [filtros, setFiltros] = useQueryStates(
+    {
+      categoria: parseAsString,
+      talla: parseAsString,
+      color: parseAsString,
+      precio_min: parseAsInteger,
+      precio_max: parseAsInteger,
+    },
+    { shallow: false },
+  );
 
   const [abierto, setAbierto] = useState(false);
   const [precioMin, setPrecioMin] = useState(filtros.precio_min?.toString() ?? "");
