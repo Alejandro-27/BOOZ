@@ -18,7 +18,7 @@ export function Footer({ configuracion }: Props) {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2">
           <div className="flex items-center gap-2">
-            <Image src="/logo.jpeg" alt="BOOZ" width={32} height={32} />
+            <Image src="/logo-64.webp" alt="BOOZ" width={32} height={32} sizes="32px" />
             <p className="font-display text-2xl">{nombreTienda}</p>
           </div>
           <p className="mt-2 max-w-sm text-sm text-hueso/70">

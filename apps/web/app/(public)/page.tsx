@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/ProductCard";
 import { obtenerProductos, type ProductoConCategoria } from "@/lib/api";
-import { optimizarImagenCloudinary } from "@/lib/utils";
 
 const BENEFICIOS = [
   {
@@ -19,10 +18,14 @@ const BENEFICIOS = [
   },
 ];
 
+// La vitrina cambia poco: se regenera cada 5 minutos en vez de consultar la
+// API en cada visita.
+export const revalidate = 300;
+
 export default async function InicioPage() {
   let destacados: ProductoConCategoria[] = [];
   try {
-    destacados = await obtenerProductos({ estado: "featured" });
+    destacados = await obtenerProductos({ estado: "featured" }, 300);
   } catch {
     // Si la API no responde, la home sigue mostrando el hero y el CTA
   }
@@ -64,10 +67,11 @@ export default async function InicioPage() {
             <div className="sm:col-span-5">
               <div className="relative aspect-[4/5] overflow-hidden bg-carbon/5">
                 <Image
-                  src={optimizarImagenCloudinary(portada.url, 900)}
+                  src={portada.url}
                   alt={portada.alt || destacado.name}
                   fill
                   priority
+                  fetchPriority="high"
                   sizes="(max-width: 640px) 100vw, 40vw"
                   className="object-cover"
                 />

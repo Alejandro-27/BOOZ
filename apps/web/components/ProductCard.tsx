@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ProductoConCategoria } from "@/lib/api";
-import { cn, formatearPrecio, optimizarImagenCloudinary } from "@/lib/utils";
+import { cn, formatearPrecio } from "@/lib/utils";
 
 interface Props {
   producto: ProductoConCategoria;
@@ -26,7 +26,7 @@ export function ProductCard({ producto }: Props) {
           {imagen ? (
             <>
               <Image
-                src={optimizarImagenCloudinary(imagen.url, 800)}
+                src={imagen.url}
                 alt={imagen.alt || producto.name}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -38,7 +38,7 @@ export function ProductCard({ producto }: Props) {
               />
               {imagenHover && !agotado && (
                 <Image
-                  src={optimizarImagenCloudinary(imagenHover.url, 800)}
+                  src={imagenHover.url}
                   alt=""
                   aria-hidden
                   fill

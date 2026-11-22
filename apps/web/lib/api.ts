@@ -19,9 +19,15 @@ export class ErrorApi extends Error {
   }
 }
 
-/** Petición JSON tipada contra la API. Sin caché: el catálogo cambia seguido. */
-async function pedir<T>(ruta: string): Promise<T> {
-  const respuesta = await fetch(`${URL_API}${ruta}`, { cache: "no-store" });
+/**
+ * Petición JSON tipada contra la API. Por defecto sin caché; las vitrinas que
+ * pueden esperar (home) pasan `revalidar` para que Next las sirva estáticas.
+ */
+async function pedir<T>(ruta: string, revalidar?: number): Promise<T> {
+  const respuesta = await fetch(
+    `${URL_API}${ruta}`,
+    revalidar ? { next: { revalidate: revalidar } } : { cache: "no-store" },
+  );
 
   if (!respuesta.ok) {
     let mensaje = "No se pudo completar la solicitud";
@@ -49,6 +55,7 @@ export interface FiltrosCatalogo {
 
 export function obtenerProductos(
   filtros: FiltrosCatalogo = {},
+  revalidar?: number,
 ): Promise<ProductoConCategoria[]> {
   const parametros = new URLSearchParams();
 
@@ -61,7 +68,7 @@ export function obtenerProductos(
   if (filtros.busqueda) parametros.set("busqueda", filtros.busqueda);
 
   const consulta = parametros.toString();
-  return pedir<ProductoConCategoria[]>(`/products${consulta ? `?${consulta}` : ""}`);
+  return pedir<ProductoConCategoria[]>(`/products${consulta ? `?${consulta}` : ""}`, revalidar);
 }
 
 export const obtenerProducto = cache((slug: string): Promise<ProductoConCategoria> => {
@@ -79,7 +86,8 @@ export const obtenerCategorias = cache((): Promise<Category[]> => {
  */
 export const obtenerConfiguracionSegura = cache(async (): Promise<StoreConfig | null> => {
   try {
-    return await pedir<StoreConfig>("/store-config");
+    // La configuración de tienda cambia en contadas ocasiones al día.
+    return await pedir<StoreConfig>("/store-config", 300);
   } catch {
     return null;
   }

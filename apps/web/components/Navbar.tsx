@@ -38,11 +38,13 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
           onClick={() => setAbierto(false)}
         >
           <Image
-            src="/logo.jpeg"
+            src="/logo-128.webp"
             alt="BOOZ"
             width={32}
             height={32}
-            />
+            sizes="32px"
+            priority
+          />
           <span className="font-display text-xl tracking-tight">{nombreTienda}</span>
         </Link>
 

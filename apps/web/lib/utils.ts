@@ -6,7 +6,7 @@ export function cn(...clases: ClassValue[]) {
   return twMerge(clsx(clases));
 }
 
-/** Formatea centavos como moneda mexicana: 189900 → "$1,899.00". */
+/** Formatea centavos como pesos colombianos: 189900 → "$ 1.899". */
 export function formatearPrecio(centavos: number): string {
   return new Intl.NumberFormat("es-CO", {
     style: "currency",
@@ -39,12 +39,3 @@ export function generarSlug(texto: string): string {
     .slice(0, 120);
 }
 
-/**
- * Inserta transformaciones de Cloudinary si la URL aún no las tiene.
- * Ej: .../upload/sample.jpg → .../upload/w_800,q_auto,f_auto/sample.jpg
- */
-export function optimizarImagenCloudinary(url: string, ancho: number): string {
-  if (!url.includes("/upload/")) return url;
-  if (/\/upload\/[^/]*w_\d+/.test(url)) return url;
-  return url.replace("/upload/", `/upload/w_${ancho},q_auto,f_auto/`);
-}

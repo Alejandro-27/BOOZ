@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import type { ProductoConCategoria } from "@/lib/api";
 import { URL_SITIO } from "@/lib/constantes";
-import { cn, formatearPrecio, optimizarImagenCloudinary } from "@/lib/utils";
+import { cn, formatearPrecio } from "@/lib/utils";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 interface Props {
@@ -30,7 +30,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
         <div className="relative aspect-[4/5] overflow-hidden bg-carbon/5">
           {imagenActiva ? (
             <Image
-              src={optimizarImagenCloudinary(imagenActiva.url, 1200)}
+              src={imagenActiva.url}
               alt={imagenActiva.alt || producto.name}
               fill
               priority
@@ -61,7 +61,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
                 )}
               >
                 <Image
-                  src={optimizarImagenCloudinary(imagen.url, 200)}
+                  src={imagen.url}
                   alt=""
                   fill
                   sizes="80px"
