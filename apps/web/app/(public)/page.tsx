@@ -18,14 +18,14 @@ const BENEFICIOS = [
   },
 ];
 
-// La vitrina cambia poco: se regenera cada 5 minutos en vez de consultar la
-// API en cada visita.
-export const revalidate = 300;
+// La vitrina se regenera cada 30 s: los cambios del panel se ven pronto sin
+// pagar una llamada a la API en cada visita.
+export const revalidate = 30;
 
 export default async function InicioPage() {
   let destacados: ProductoConCategoria[] = [];
   try {
-    destacados = await obtenerProductos({ estado: "featured" }, 300);
+    destacados = await obtenerProductos({ estado: "featured" }, 30);
   } catch {
     // Si la API no responde, la home sigue mostrando el hero y el CTA
   }

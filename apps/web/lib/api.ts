@@ -87,7 +87,7 @@ export const obtenerCategorias = cache((): Promise<Category[]> => {
 export const obtenerConfiguracionSegura = cache(async (): Promise<StoreConfig | null> => {
   try {
     // La configuración de tienda cambia en contadas ocasiones al día.
-    return await pedir<StoreConfig>("/store-config", 300);
+    return await pedir<StoreConfig>("/store-config", 30);
   } catch {
     return null;
   }

@@ -28,7 +28,6 @@ export default function QrPage() {
         if (!vigente) return;
         setImagen(dataUrl);
         setError(null);
-        void superponerLogo(canvasRef.current, dataUrl);
       })
       .catch(() => {
         if (vigente) setError("No se pudo generar el QR. Revisa la dirección.");
@@ -37,7 +36,13 @@ export default function QrPage() {
     return () => {
       vigente = false;
     };
-  }, [url, canvasRef.current]);
+  }, [url]);
+
+  // El canvas solo existe después de que `imagen` se renderiza, así que el
+  // dibujo va en su propio efecto; llamarlo desde el then() lo deja vacío.
+  useEffect(() => {
+    if (imagen) void superponerLogo(canvasRef.current, imagen);
+  }, [imagen]);
 
   /**
    * Dibuja el QR en el canvas y superpone el logo de BOOZ al centro.

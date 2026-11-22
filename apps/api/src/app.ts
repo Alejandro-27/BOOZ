@@ -25,7 +25,13 @@ export async function crearApp() {
     .map((origen) => origen.trim())
     .filter(Boolean);
 
-  app.register(cors, { origin: origenesPermitidos, credentials: true });
+  app.register(cors, {
+    origin: origenesPermitidos,
+    credentials: true,
+    // Sin esta lista, Fastify solo anuncia GET/HEAD/POST en el preflight y el
+    // navegador bloquea las mutaciones del panel (PUT/PATCH/DELETE).
+    methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  });
   app.register(multipart, {
     limits: { fileSize: LIMITE_ARCHIVO, files: 1 },
   });
