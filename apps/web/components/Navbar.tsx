@@ -53,6 +53,7 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
             <li key={enlace.href}>
               <Link
                 href={enlace.href}
+                prefetch={false}
                 className={cn(
                   "text-sm font-medium transition-colors hover:text-oxblood",
                   ruta === enlace.href ? "text-oxblood" : "text-pizarra",
@@ -101,6 +102,7 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
               <li key={enlace.href}>
                 <Link
                   href={enlace.href}
+                  prefetch={false}
                   onClick={() => setAbierto(false)}
                   className={cn(
                     "block py-3 text-sm font-medium",

@@ -5,9 +5,10 @@ import { cn, formatearPrecio } from "@/lib/utils";
 
 interface Props {
   producto: ProductoConCategoria;
+  prioritaria?: boolean;
 }
 
-export function ProductCard({ producto }: Props) {
+export function ProductCard({ producto, prioritaria = false }: Props) {
   const imagen = producto.images[0];
   const imagenHover = producto.images[1];
   const agotado = producto.status === "soldout" || producto.stock === 0;
@@ -17,7 +18,7 @@ export function ProductCard({ producto }: Props) {
       : null;
 
   return (
-    <article className="group overflow-hidden rounded-sm border border-stone-200 bg-tarjeta shadow-sm transition-all duration-300 hover:shadow-md">
+    <article className="product-card group overflow-hidden rounded-sm border border-stone-200 bg-tarjeta shadow-sm transition-all duration-300 hover:shadow-md">
       <Link
         href={`/producto/${producto.slug}`}
         className="block transition-transform duration-200 active:scale-[0.98]"
@@ -29,6 +30,7 @@ export function ProductCard({ producto }: Props) {
                 src={imagen.url}
                 alt={imagen.alt || producto.name}
                 fill
+                priority={prioritaria}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className={cn(
                   "object-cover transition-opacity duration-500 ease-in-out",

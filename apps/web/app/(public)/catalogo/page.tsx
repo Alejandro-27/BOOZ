@@ -91,8 +91,12 @@ export default async function CatalogoPage({ searchParams }: Props) {
                 {productos.length} {productos.length === 1 ? "modelo" : "modelos"}
               </p>
               <div className="reveal grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 xl:grid-cols-3">
-                {productos.map((producto) => (
-                  <ProductCard key={producto.id} producto={producto} />
+                {productos.map((producto, indice) => (
+                  <ProductCard
+                    key={producto.id}
+                    producto={producto}
+                    prioritaria={indice === 0}
+                  />
                 ))}
               </div>
             </>

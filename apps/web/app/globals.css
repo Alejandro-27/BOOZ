@@ -66,3 +66,10 @@
     animation: none;
   }
 }
+
+/* El catálogo renderiza tarjetas fuera de pantalla: el navegador se ahorra
+   su layout y pintado hasta que entran en el viewport. */
+.product-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 360px;
+}
