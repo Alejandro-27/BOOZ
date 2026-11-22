@@ -24,14 +24,16 @@ async function pedir<T>(ruta: string, opciones: RequestInit = {}): Promise<T> {
     throw new ErrorApi(401, "Tu sesión expiró. Inicia sesión de nuevo.");
   }
 
-  // FormData fija su propio Content-Type (incluye el boundary)
+  // FormData fija su propio Content-Type (boundary) y las peticiones sin cuerpo
+  // (DELETE) no deben mandar application/json: Fastify responde 400.
   const esFormData = opciones.body instanceof FormData;
+  const conCuerpo = opciones.body !== undefined && opciones.body !== null;
 
   const respuesta = await fetch(`${URL_API}${ruta}`, {
     ...opciones,
     cache: "no-store",
     headers: {
-      ...(esFormData ? {} : { "Content-Type": "application/json" }),
+      ...(conCuerpo && !esFormData ? { "Content-Type": "application/json" } : {}),
       ...opciones.headers,
       Authorization: `Bearer ${session.access_token}`,
     },
