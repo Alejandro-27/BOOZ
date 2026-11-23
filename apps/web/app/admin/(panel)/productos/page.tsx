@@ -8,9 +8,11 @@ import { Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { eliminarProducto, listarProductosAdmin } from "@/lib/api-admin";
 import { formatearPrecio } from "@/lib/utils";
 import { Alerta } from "@/components/admin/Campo";
+import { useAviso } from "@/components/Toasts";
 
 export default function ProductosPage() {
   const queryClient = useQueryClient();
+  const avisar = useAviso();
   const [busqueda, setBusqueda] = useState("");
   const [termino, setTermino] = useState("");
   const [confirmando, setConfirmando] = useState<string | null>(null);
@@ -35,10 +37,13 @@ export default function ProductosPage() {
     mutationFn: eliminarProducto,
     onSuccess: () => {
       setConfirmando(null);
+      avisar("exito", "Producto eliminado.");
       void queryClient.invalidateQueries({ queryKey: ["productos-admin"] });
     },
     onError: (fallo) => {
-      setError(fallo instanceof Error ? fallo.message : "No se pudo eliminar el producto.");
+      const mensaje = fallo instanceof Error ? fallo.message : "No se pudo eliminar el producto.";
+      setError(mensaje);
+      avisar("error", mensaje);
     },
   });
 

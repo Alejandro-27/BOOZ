@@ -21,6 +21,7 @@ import {
 } from "@/lib/esquemas-admin";
 import { cn, generarSlug } from "@/lib/utils";
 import { Alerta, Campo, claseInput } from "./Campo";
+import { useAviso } from "@/components/Toasts";
 import { ImageUploader } from "./ImageUploader";
 
 const ESTADOS = [
@@ -58,6 +59,7 @@ interface Props {
 export function ProductForm({ producto }: Props) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const avisar = useAviso();
   const [error, setError] = useState<string | null>(null);
 
   const { data: categorias = [] } = useQuery({
@@ -74,11 +76,14 @@ export function ProductForm({ producto }: Props) {
     mutationFn: (datos: SalidaProducto) =>
       producto ? actualizarProducto(producto.id, datos) : crearProducto(datos),
     onSuccess: () => {
+      avisar("exito", producto ? "Producto actualizado." : "Producto creado.");
       void queryClient.invalidateQueries({ queryKey: ["productos-admin"] });
       router.push("/admin/productos");
     },
     onError: (fallo) => {
-      setError(fallo instanceof Error ? fallo.message : "No se pudo guardar el producto.");
+      const mensaje = fallo instanceof Error ? fallo.message : "No se pudo guardar el producto.";
+      setError(mensaje);
+      avisar("error", mensaje);
     },
   });
 
@@ -108,10 +113,13 @@ export function ProductForm({ producto }: Props) {
 
   return (
     <form
-      onSubmit={form.handleSubmit((datos) => {
-        setError(null);
-        guardar.mutate(datos);
-      })}
+      onSubmit={form.handleSubmit(
+        (datos) => {
+          setError(null);
+          guardar.mutate(datos);
+        },
+        () => avisar("aviso", "Faltan campos por completar. Revisa los datos marcados."),
+      )}
       className="space-y-8"
       noValidate
     >

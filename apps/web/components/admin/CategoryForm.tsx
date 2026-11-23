@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAviso } from "@/components/Toasts";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { createCategorySchema, type Category } from "@zapateria/shared";
@@ -21,6 +22,7 @@ interface Props {
 /** Formulario reutilizado para crear y editar categorías. */
 export function CategoryForm({ categoria, onTerminado }: Props) {
   const queryClient = useQueryClient();
+  const avisar = useAviso();
   const [error, setError] = useState<string | null>(null);
 
   const form = useForm<EntradaCategoria, unknown, SalidaCategoria>({
@@ -37,11 +39,14 @@ export function CategoryForm({ categoria, onTerminado }: Props) {
     mutationFn: (datos: SalidaCategoria) =>
       categoria ? actualizarCategoria(categoria.id, datos) : crearCategoria(datos),
     onSuccess: () => {
+      avisar("exito", categoria ? "Categoría actualizada." : "Categoría creada.");
       void queryClient.invalidateQueries({ queryKey: ["categorias-admin"] });
       onTerminado();
     },
     onError: (fallo) => {
-      setError(fallo instanceof Error ? fallo.message : "No se pudo guardar la categoría.");
+      const mensaje = fallo instanceof Error ? fallo.message : "No se pudo guardar la categoría.";
+      setError(mensaje);
+      avisar("error", mensaje);
     },
   });
 
@@ -50,10 +55,13 @@ export function CategoryForm({ categoria, onTerminado }: Props) {
 
   return (
     <form
-      onSubmit={form.handleSubmit((datos) => {
-        setError(null);
-        guardar.mutate(datos);
-      })}
+      onSubmit={form.handleSubmit(
+        (datos) => {
+          setError(null);
+          guardar.mutate(datos);
+        },
+        () => avisar("aviso", "Escribe el nombre de la categoría."),
+      )}
       className="space-y-4 border border-carbon/10 bg-white p-4"
       noValidate
     >

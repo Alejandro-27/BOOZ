@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useAviso } from "@/components/Toasts";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { actualizarConfiguracion, obtenerConfiguracion } from "@/lib/api-admin";
@@ -26,6 +27,7 @@ const VALORES_INICIALES: EntradaConfiguracion = {
 
 export function ConfigForm() {
   const queryClient = useQueryClient();
+  const avisar = useAviso();
   const [error, setError] = useState<string | null>(null);
   const [guardado, setGuardado] = useState(false);
 
@@ -64,10 +66,13 @@ export function ConfigForm() {
     mutationFn: (datos: SalidaConfiguracion) => actualizarConfiguracion(datos),
     onSuccess: () => {
       setGuardado(true);
+      avisar("exito", "Cambios guardados.");
       void queryClient.invalidateQueries({ queryKey: ["configuracion-admin"] });
     },
     onError: (fallo) => {
-      setError(fallo instanceof Error ? fallo.message : "No se pudo guardar la configuración.");
+      const mensaje = fallo instanceof Error ? fallo.message : "No se pudo guardar la configuración.";
+      setError(mensaje);
+      avisar("error", mensaje);
     },
   });
 
@@ -79,11 +84,14 @@ export function ConfigForm() {
 
   return (
     <form
-      onSubmit={form.handleSubmit((datos) => {
-        setError(null);
-        setGuardado(false);
-        guardar.mutate(datos);
-      })}
+      onSubmit={form.handleSubmit(
+        (datos) => {
+          setError(null);
+          setGuardado(false);
+          guardar.mutate(datos);
+        },
+        () => avisar("aviso", "Faltan campos por completar. Revisa los datos marcados."),
+      )}
       className="space-y-8"
       noValidate
     >

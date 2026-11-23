@@ -25,8 +25,21 @@ export async function crearApp() {
     .map((origen) => origen.trim())
     .filter(Boolean);
 
+  // En desarrollo se acepta también el IP de la red local (192.168.x, 10.x)
+  // para probar el panel desde el celular. En producción solo la lista env.
+  const origenValido = (origen: string | undefined) =>
+    !origen ||
+    origenesPermitidos.includes(origen) ||
+    (env.NODE_ENV === "development" &&
+      /^http:\/\/(localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}|10\.\d{1,3}\.\d{1,3}\.\d{1,3})(:\d+)?$/.test(
+        origen,
+      ));
+
   app.register(cors, {
-    origin: origenesPermitidos,
+    origin: (
+      origen: string | undefined,
+      cb: (error: Error | null, permitido: boolean) => void,
+    ) => cb(null, origenValido(origen)),
     credentials: true,
     // Sin esta lista, Fastify solo anuncia GET/HEAD/POST en el preflight y el
     // navegador bloquea las mutaciones del panel (PUT/PATCH/DELETE).

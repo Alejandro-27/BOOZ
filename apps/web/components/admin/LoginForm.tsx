@@ -5,9 +5,11 @@ import { useState, type FormEvent } from "react";
 import { LogIn } from "lucide-react";
 import { crearClienteNavegador } from "@/lib/supabase/client";
 import { Alerta, Campo, claseInput } from "./Campo";
+import { useAviso } from "@/components/Toasts";
 
 export function LoginForm() {
   const router = useRouter();
+  const avisar = useAviso();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -16,6 +18,10 @@ export function LoginForm() {
   const enviar = async (evento: FormEvent) => {
     evento.preventDefault();
     setError(null);
+    if (!email || !password) {
+      avisar("aviso", "Escribe tu correo y contraseña.");
+      return;
+    }
     setEnviando(true);
 
     const { error: errorAuth } = await crearClienteNavegador().auth.signInWithPassword({
@@ -25,11 +31,12 @@ export function LoginForm() {
 
     if (errorAuth) {
       // Supabase devuelve los mensajes en inglés; se traducen los más comunes
-      setError(
+      const mensaje =
         errorAuth.message === "Invalid login credentials"
           ? "Correo o contraseña incorrectos."
-          : "No pudimos iniciar sesión. Revisa tus datos e intenta de nuevo.",
-      );
+          : "No pudimos iniciar sesión. Revisa tus datos e intenta de nuevo.";
+      setError(mensaje);
+      avisar("error", mensaje);
       setEnviando(false);
       return;
     }

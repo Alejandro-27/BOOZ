@@ -4,11 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 import { Download } from "lucide-react";
 import { Alerta, Campo, claseInput } from "@/components/admin/Campo";
+import { useAviso } from "@/components/Toasts";
 
 const URL_POR_DEFECTO = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export default function QrPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const avisar = useAviso();
   const [url, setUrl] = useState(URL_POR_DEFECTO);
   const [imagen, setImagen] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +32,10 @@ export default function QrPage() {
         setError(null);
       })
       .catch(() => {
-        if (vigente) setError("No se pudo generar el QR. Revisa la dirección.");
+        if (vigente) {
+          setError("No se pudo generar el QR. Revisa la dirección.");
+          avisar("error", "No se pudo generar el QR. Revisa la dirección.");
+        }
       });
 
     return () => {
@@ -98,6 +103,7 @@ export default function QrPage() {
     enlace.download = "booz-catalogo.png";
     enlace.href = canvasRef.current.toDataURL("image/png");
     enlace.click();
+    avisar("exito", "QR descargado como booz-catalogo.png.");
   };
 
   return (

@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { ProveedorAvisos } from "@/components/Toasts";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -58,7 +59,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />
       </head>
       <body className="font-sans antialiased">
-        <Providers>{children}</Providers>
+        <ProveedorAvisos>
+          <Providers>{children}</Providers>
+        </ProveedorAvisos>
       </body>
     </html>
   );

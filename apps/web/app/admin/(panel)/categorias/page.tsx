@@ -10,10 +10,12 @@ import {
   listarCategoriasAdmin,
 } from "@/lib/api-admin";
 import { Alerta } from "@/components/admin/Campo";
+import { useAviso } from "@/components/Toasts";
 import { CategoryForm } from "@/components/admin/CategoryForm";
 
 export default function CategoriasPage() {
   const queryClient = useQueryClient();
+  const avisar = useAviso();
   const [creando, setCreando] = useState(false);
   const [editando, setEditando] = useState<Category | null>(null);
   const [confirmando, setConfirmando] = useState<string | null>(null);
@@ -33,10 +35,13 @@ export default function CategoriasPage() {
       actualizarCategoria(categoria.id, { active: !categoria.active }),
     onSuccess: () => {
       setError(null);
+      avisar("exito", "Categoría actualizada.");
       void queryClient.invalidateQueries({ queryKey: ["categorias-admin"] });
     },
     onError: (fallo) => {
-      setError(fallo instanceof Error ? fallo.message : "No se pudo actualizar la categoría.");
+      const mensaje = fallo instanceof Error ? fallo.message : "No se pudo actualizar la categoría.";
+      setError(mensaje);
+      avisar("error", mensaje);
     },
   });
 
@@ -44,10 +49,13 @@ export default function CategoriasPage() {
     mutationFn: eliminarCategoria,
     onSuccess: () => {
       setConfirmando(null);
+      avisar("exito", "Categoría eliminada.");
       void queryClient.invalidateQueries({ queryKey: ["categorias-admin"] });
     },
     onError: (fallo) => {
-      setError(fallo instanceof Error ? fallo.message : "No se pudo eliminar la categoría.");
+      const mensaje = fallo instanceof Error ? fallo.message : "No se pudo eliminar la categoría.";
+      setError(mensaje);
+      avisar("error", mensaje);
     },
   });
 
