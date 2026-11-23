@@ -25,6 +25,7 @@
   body {
     background-color: var(--color-hueso);
     color: var(--color-carbon);
+    line-height: 1.5;
   }
 
   /* Foco visible para navegación con teclado */
@@ -34,20 +35,33 @@
   }
 }
 
-/* Aparición al hacer scroll. Sin soporte de animation-timeline el contenido
-   simplemente se ve: el estado base nunca queda oculto. */
-@supports (animation-timeline: view()) {
-  .reveal {
-    animation: reveal-up linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 55%;
+@layer components {
+  /* clamp mezcla rem y vw: crece con el viewport pero sigue respondiendo al
+     zoom del usuario. El máximo es <= 2.5x el mínimo (WCAG 1.4.4). */
+  .titulo-display {
+    font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  .titulo-seccion {
+    font-size: clamp(1.75rem, 1.25rem + 2.5vw, 3rem);
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .prosa {
+    max-width: 65ch;
+    text-wrap: pretty;
   }
 }
 
-@keyframes reveal-up {
+/* Aparición al entrar en el viewport. Sin soporte, el contenido se ve igual:
+   es una mejora progresiva, no una condición para que exista el texto. */
+@keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(1rem);
+    transform: translateY(1.25rem);
   }
   to {
     opacity: 1;
@@ -55,14 +69,18 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    animation: none;
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .reveal-on-scroll {
+      animation: fade-in-up 0.8s ease-out both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
   }
 }
 
 @media print {
-  .reveal {
+  .reveal-on-scroll {
     animation: none;
   }
 }

@@ -54,6 +54,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${inter.variable} ${playfair.variable}`}
       data-scroll-behavior="smooth"
     >
+      <head>
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />
+      </head>
       <body className="font-sans antialiased">
         <Providers>{children}</Providers>
       </body>

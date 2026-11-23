@@ -57,17 +57,17 @@ export function ProductCard({ producto, prioritaria = false }: Props) {
 
           <div className="absolute left-3 top-3 flex flex-col items-start gap-2">
             {producto.status === "featured" && (
-              <span className="bg-dorado px-2 py-1 text-[11px] font-medium text-carbon">
+              <span className="bg-dorado px-2 py-1 text-[0.6875rem] font-medium text-carbon">
                 Destacado
               </span>
             )}
             {agotado && (
-              <span className="bg-carbon px-2 py-1 text-[11px] font-medium text-hueso">
+              <span className="bg-carbon px-2 py-1 text-[0.6875rem] font-medium text-hueso">
                 Agotado
               </span>
             )}
             {descuento !== null && !agotado && (
-              <span className="bg-cuero px-2 py-1 text-[11px] font-medium text-hueso">
+              <span className="bg-cuero px-2 py-1 text-[0.6875rem] font-medium text-hueso">
                 -{descuento}%
               </span>
             )}
@@ -76,7 +76,7 @@ export function ProductCard({ producto, prioritaria = false }: Props) {
 
         <div className="space-y-1 p-4">
           {producto.category && (
-            <p className="text-[11px] font-medium text-oxblood">{producto.category.name}</p>
+            <p className="text-[0.6875rem] font-medium text-oxblood">{producto.category.name}</p>
           )}
           <h3 className="font-display text-lg leading-snug">{producto.name}</h3>
           <div className="flex items-baseline gap-2">

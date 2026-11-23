@@ -15,7 +15,7 @@ export default async function ContactoPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-14 sm:py-20">
       <p className="font-display text-sm text-oxblood">Contacto</p>
-      <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight text-carbon sm:text-5xl">
+      <h1 className="titulo-display mt-3 font-display leading-[1.05] tracking-tight text-carbon">
         Estamos para ayudarte
       </h1>
       <span aria-hidden className="mt-6 block h-px w-6 bg-laton" />
@@ -81,8 +81,8 @@ export default async function ContactoPage() {
       </div>
 
       <section className="mt-12 border-t border-carbon/10 pt-10">
-        <h2 className="font-display text-2xl tracking-tight text-carbon">Políticas de compra</h2>
-        <p className="mt-4 whitespace-pre-line text-base leading-relaxed text-pizarra">
+        <h2 className="titulo-seccion font-display tracking-tight text-carbon">Políticas de compra</h2>
+        <p className="prosa mt-4 whitespace-pre-line text-base leading-relaxed text-pizarra">
           {configuracion?.policies ??
             "Envíos a todo el país en 3 a 5 días hábiles. Cambios sin costo dentro de los primeros 30 días. Garantía de 90 días por defectos de fabricación."}
         </p>

@@ -77,7 +77,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
         {producto.category && (
           <p className="font-display text-sm text-oxblood">{producto.category.name}</p>
         )}
-        <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight text-carbon sm:text-5xl">
+        <h1 className="titulo-display mt-3 font-display leading-[1.05] tracking-tight text-carbon">
           {producto.name}
         </h1>
         <span aria-hidden className="mt-5 block h-px w-6 bg-laton" />
@@ -92,7 +92,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
                 {formatearPrecio(producto.price)}
               </span>
               {descuento !== null && (
-                <span className="bg-oxblood px-2 py-1 text-[10px] font-semibold text-hueso">
+                <span className="bg-oxblood px-2 py-1 text-[0.625rem] font-semibold text-hueso">
                   -{descuento}%
                 </span>
               )}

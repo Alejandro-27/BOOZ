@@ -59,7 +59,7 @@ export default async function CatalogoPage({ searchParams }: Props) {
     <div className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
       <header>
         <p className="font-display text-sm text-oxblood">Catálogo</p>
-        <h1 className="mt-3 font-display text-4xl tracking-tight text-carbon sm:text-5xl">
+        <h1 className="titulo-display mt-3 font-display tracking-tight text-carbon">
           Calzado de vestir
         </h1>
         <span aria-hidden className="mt-5 block h-px w-6 bg-laton" />
@@ -90,7 +90,7 @@ export default async function CatalogoPage({ searchParams }: Props) {
               <p className="mb-6 text-sm text-pizarra">
                 {productos.length} {productos.length === 1 ? "modelo" : "modelos"}
               </p>
-              <div className="reveal grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="reveal-on-scroll grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 xl:grid-cols-3">
                 {productos.map((producto, indice) => (
                   <ProductCard
                     key={producto.id}

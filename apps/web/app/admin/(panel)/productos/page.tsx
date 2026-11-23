@@ -112,7 +112,7 @@ export default function ProductosPage() {
                       className="object-cover"
                     />
                   ) : (
-                    <span className="flex h-full items-center justify-center text-[10px] text-carbon/40">
+                    <span className="flex h-full items-center justify-center text-[0.625rem] text-carbon/40">
                       Sin imagen
                     </span>
                   )}
@@ -122,17 +122,17 @@ export default function ProductosPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="font-medium">{producto.name}</p>
                     {!producto.is_active && (
-                      <span className="border border-carbon/30 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-carbon/60">
+                      <span className="border border-carbon/30 px-1.5 py-0.5 text-[0.625rem] font-semibold uppercase tracking-widest text-carbon/60">
                         Borrador
                       </span>
                     )}
                     {producto.status === "featured" && (
-                      <span className="bg-dorado px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest">
+                      <span className="bg-dorado px-1.5 py-0.5 text-[0.625rem] font-semibold uppercase tracking-widest">
                         Destacado
                       </span>
                     )}
                     {agotado && (
-                      <span className="bg-carbon px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-hueso">
+                      <span className="bg-carbon px-1.5 py-0.5 text-[0.625rem] font-semibold uppercase tracking-widest text-hueso">
                         Agotado
                       </span>
                     )}

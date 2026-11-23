@@ -40,11 +40,11 @@ export default async function InicioPage() {
         <div className="grid items-end gap-10 sm:grid-cols-12 sm:gap-12">
           <div className="sm:col-span-7">
             <p className="font-display text-sm text-oxblood">BOOZ</p>
-            <h1 className="mt-4 font-display text-5xl leading-[1.02] tracking-tight text-carbon sm:text-7xl">
+            <h1 className="titulo-display mt-4 font-display leading-[1.02] tracking-tight text-carbon">
               Calzado masculino de vestir, hecho con carácter
             </h1>
             <span aria-hidden className="mt-6 block h-px w-6 bg-laton" />
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-pizarra">
+            <p className="prosa mt-6 max-w-lg text-lg leading-relaxed text-pizarra">
               Diseñado en Arauca, Colombia. Pocos modelos, elegidos uno por uno.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
@@ -84,7 +84,7 @@ export default async function InicioPage() {
 
       {/* Beneficios: una línea, sin tarjetas */}
       <section className="border-y border-carbon/10">
-        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3 sm:gap-12">
+        <div className="reveal-on-scroll mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-3 sm:gap-12">
           {BENEFICIOS.map(({ titulo, descripcion }, i) => (
             <div key={titulo}>
               <p className="font-display text-xs text-pizarra">0{i + 1}</p>
@@ -100,7 +100,7 @@ export default async function InicioPage() {
         <section className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-4 sm:mb-16">
             <div>
-              <h2 className="font-display text-3xl tracking-tight text-carbon sm:text-4xl">
+              <h2 className="titulo-seccion font-display tracking-tight text-carbon">
                 Modelos destacados
               </h2>
               <span aria-hidden className="mt-4 block h-px w-6 bg-laton" />
@@ -113,7 +113,7 @@ export default async function InicioPage() {
             </Link>
           </div>
 
-          <div className="reveal grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="reveal-on-scroll grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {destacados.map((producto) => (
               <ProductCard key={producto.id} producto={producto} />
             ))}
@@ -125,7 +125,7 @@ export default async function InicioPage() {
       <section className="bg-carbon py-20 text-hueso sm:py-24">
         <div className="mx-auto flex max-w-6xl flex-col justify-between gap-6 px-6 sm:flex-row sm:items-center">
           <div>
-            <h2 className="font-display text-2xl tracking-tight sm:text-3xl">
+            <h2 className="titulo-seccion font-display tracking-tight">
               ¿Buscas un modelo en especial?
             </h2>
             <p className="mt-2 text-sm text-hueso/70">

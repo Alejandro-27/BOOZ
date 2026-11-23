@@ -15,12 +15,12 @@ export default async function NosotrosPage() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-14 sm:py-20">
       <p className="font-display text-sm text-oxblood">Nosotros</p>
-      <h1 className="mt-3 font-display text-4xl leading-[1.05] tracking-tight text-carbon sm:text-5xl">
+      <h1 className="titulo-display mt-3 font-display leading-[1.05] tracking-tight text-carbon">
         {nombreTienda}, calzado con carácter desde {ciudad}
       </h1>
       <span aria-hidden className="mt-6 block h-px w-6 bg-laton" />
 
-      <div className="mt-10 max-w-2xl space-y-5 text-base leading-relaxed text-pizarra">
+      <div className="prosa mt-10 max-w-2xl space-y-5 text-base leading-relaxed text-pizarra">
         <p>
           {nombreTienda} nació con una idea sencilla: un hombre bien calzado camina distinto.
           Elegimos cada modelo pensando en la comodidad, la durabilidad y la presencia que un
@@ -38,7 +38,7 @@ export default async function NosotrosPage() {
       </div>
 
       {/* Tres ideas, jerarquía despareja: la primera ocupa más ancho */}
-      <div className="mt-14 grid gap-x-10 gap-y-8 border-t border-carbon/10 pt-10 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="reveal-on-scroll mt-14 grid gap-x-10 gap-y-8 border-t border-carbon/10 pt-10 sm:grid-cols-2 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <p className="font-display text-2xl text-carbon">Selección cuidada</p>
           <p className="mt-2 text-sm leading-relaxed text-pizarra">

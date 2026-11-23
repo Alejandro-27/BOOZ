@@ -113,7 +113,7 @@ export default function CategoriasPage() {
                 <div className="flex flex-wrap items-center gap-2">
                   <p className="font-medium">{categoria.name}</p>
                   {!categoria.active && (
-                    <span className="bg-carbon/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-carbon/60">
+                    <span className="bg-carbon/10 px-1.5 py-0.5 text-[0.625rem] font-semibold uppercase tracking-widest text-carbon/60">
                       Inactiva
                     </span>
                   )}
