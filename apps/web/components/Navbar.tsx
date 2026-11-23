@@ -43,6 +43,7 @@ export function Navbar({ nombreTienda, whatsapp }: Props) {
             width={32}
             height={32}
             sizes="32px"
+            unoptimized
             priority
           />
           <span className="font-display text-xl tracking-tight">{nombreTienda}</span>
