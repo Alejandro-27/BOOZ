@@ -8,7 +8,7 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "@zapateria/shared": ["../../packages/shared/src"]
+      "@zapateria/shared": ["../../packages/shared"]
     }
   },
   "include": ["src/**/*.ts"],

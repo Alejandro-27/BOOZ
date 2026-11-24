@@ -12,7 +12,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@zapateria/shared": ["../../packages/shared/src"]
+      "@zapateria/shared": ["../../packages/shared"]
     },
     "plugins": [{ "name": "next" }]
   },
