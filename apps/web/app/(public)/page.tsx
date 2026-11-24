@@ -113,7 +113,7 @@ export default async function InicioPage() {
             </Link>
           </div>
 
-          <div className="reveal-on-scroll grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="stagger grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {destacados.map((producto) => (
               <ProductCard key={producto.id} producto={producto} />
             ))}

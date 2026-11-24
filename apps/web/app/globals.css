@@ -61,11 +61,13 @@
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(1.25rem);
+    /* `translate` en vez de `transform`: así el hover:scale de la tarjeta
+       sigue funcionando cuando la animación ya terminó. */
+    translate: 0 1.25rem;
   }
   to {
     opacity: 1;
-    transform: none;
+    translate: 0 0;
   }
 }
 
@@ -76,11 +78,33 @@
       animation-timeline: view();
       animation-range: entry 10% cover 30%;
     }
+
+    /* Las tarjetas entran una tras otra (50 ms); a partir de la 13 el retraso
+       vuelve a 0 para no dejar la última fila esperando. */
+    .stagger > * {
+      animation: fade-in-up 0.7s ease-out both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+      animation-delay: calc(var(--i, 0) * 50ms);
+    }
+    .stagger > :nth-child(1) { --i: 0; }
+    .stagger > :nth-child(2) { --i: 1; }
+    .stagger > :nth-child(3) { --i: 2; }
+    .stagger > :nth-child(4) { --i: 3; }
+    .stagger > :nth-child(5) { --i: 4; }
+    .stagger > :nth-child(6) { --i: 5; }
+    .stagger > :nth-child(7) { --i: 6; }
+    .stagger > :nth-child(8) { --i: 7; }
+    .stagger > :nth-child(9) { --i: 8; }
+    .stagger > :nth-child(10) { --i: 9; }
+    .stagger > :nth-child(11) { --i: 10; }
+    .stagger > :nth-child(12) { --i: 11; }
   }
 }
 
 @media print {
-  .reveal-on-scroll {
+  .reveal-on-scroll,
+  .stagger > * {
     animation: none;
   }
 }

@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import type { ProductoConCategoria } from "@/lib/api";
 import { URL_SITIO } from "@/lib/constantes";
 import { cn, formatearPrecio } from "@/lib/utils";
+import { ProductLightbox } from "./ProductLightbox";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 interface Props {
@@ -13,11 +13,9 @@ interface Props {
 }
 
 export function DetalleProducto({ producto, whatsapp }: Props) {
-  const [indiceImagen, setIndiceImagen] = useState(0);
   const [talla, setTalla] = useState<string | null>(null);
   const [color, setColor] = useState<string | null>(null);
 
-  const imagenActiva = producto.images[indiceImagen];
   const agotado = producto.status === "soldout" || producto.stock === 0;
   const descuento =
     producto.sale_price !== null
@@ -26,52 +24,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
 
   return (
     <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-      <div>
-        <div className="relative aspect-[4/5] overflow-hidden bg-carbon/5">
-          {imagenActiva ? (
-            <Image
-              src={imagenActiva.url}
-              alt={imagenActiva.alt || producto.name}
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center text-sm text-carbon/40">
-              Sin imagen
-            </div>
-          )}
-        </div>
-
-        {producto.images.length > 1 && (
-          <div className="mt-3 flex gap-3 overflow-x-auto pb-1">
-            {producto.images.map((imagen, posicion) => (
-              <button
-                key={`${imagen.url}-${posicion}`}
-                type="button"
-                onClick={() => setIndiceImagen(posicion)}
-                aria-label={`Ver imagen ${posicion + 1}`}
-                aria-current={posicion === indiceImagen}
-                className={cn(
-                  "relative aspect-square w-20 shrink-0 overflow-hidden border",
-                  posicion === indiceImagen
-                    ? "border-carbon"
-                    : "border-transparent opacity-70 hover:opacity-100",
-                )}
-              >
-                <Image
-                  src={imagen.url}
-                  alt=""
-                  fill
-                  sizes="80px"
-                  className="object-cover"
-                />
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
+      <ProductLightbox imagenes={producto.images} nombre={producto.name} />
 
       <div className="lg:sticky lg:top-24 lg:self-start">
         {producto.category && (

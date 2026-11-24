@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { LogIn } from "lucide-react";
+import { Eye, EyeOff, LogIn } from "lucide-react";
 import { crearClienteNavegador } from "@/lib/supabase/client";
 import { Alerta, Campo, claseInput } from "./Campo";
 import { useAviso } from "@/components/Toasts";
@@ -12,6 +12,7 @@ export function LoginForm() {
   const avisar = useAviso();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [verPassword, setVerPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
 
@@ -62,15 +63,30 @@ export function LoginForm() {
       </Campo>
 
       <Campo etiqueta="Contraseña" htmlFor="password">
-        <input
-          id="password"
-          type="password"
-          required
-          autoComplete="current-password"
-          value={password}
-          onChange={(evento) => setPassword(evento.target.value)}
-          className={claseInput}
-        />
+        <div className="relative">
+          <input
+            id="password"
+            type={verPassword ? "text" : "password"}
+            required
+            autoComplete="current-password"
+            value={password}
+            onChange={(evento) => setPassword(evento.target.value)}
+            className={`${claseInput} pr-12`}
+          />
+          <button
+            type="button"
+            onClick={() => setVerPassword((visible) => !visible)}
+            aria-label={verPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+            aria-pressed={verPassword}
+            className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-carbon/50 transition-colors hover:text-carbon"
+          >
+            {verPassword ? (
+              <EyeOff className="size-4" strokeWidth={1.5} aria-hidden />
+            ) : (
+              <Eye className="size-4" strokeWidth={1.5} aria-hidden />
+            )}
+          </button>
+        </div>
       </Campo>
 
       <button

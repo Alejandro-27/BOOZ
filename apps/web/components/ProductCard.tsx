@@ -18,11 +18,8 @@ export function ProductCard({ producto, prioritaria = false }: Props) {
       : null;
 
   return (
-    <article className="product-card group overflow-hidden rounded-sm border border-stone-200 bg-tarjeta shadow-sm transition-all duration-300 hover:shadow-md">
-      <Link
-        href={`/producto/${producto.slug}`}
-        className="block transition-transform duration-200 active:scale-[0.98]"
-      >
+    <article className="product-card group overflow-hidden rounded-sm border border-stone-200 bg-tarjeta shadow-sm transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-md active:scale-[0.98]">
+      <Link href={`/producto/${producto.slug}`} className="block">
         <div className="relative aspect-[4/5] overflow-hidden bg-carbon/5">
           {imagen ? (
             <>

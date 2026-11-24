@@ -90,7 +90,7 @@ export default async function CatalogoPage({ searchParams }: Props) {
               <p className="mb-6 text-sm text-pizarra">
                 {productos.length} {productos.length === 1 ? "modelo" : "modelos"}
               </p>
-              <div className="reveal-on-scroll grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="stagger grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 xl:grid-cols-3">
                 {productos.map((producto, indice) => (
                   <ProductCard
                     key={producto.id}
