@@ -8,6 +8,7 @@ import {
   obtenerProducto,
   type ProductoConCategoria,
 } from "@/lib/api";
+import { urlCloudinary } from "@/lib/imagenes";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -19,6 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const producto = await obtenerProducto(slug);
     const imagen = producto.images[0];
+    // WhatsApp descarga esta imagen para la tarjeta: se pide ya optimizada
+    // (las subidas nuevas guardan el secure_url original, sin transformar).
+    const imagenOg = imagen
+      ? { url: urlCloudinary(imagen.url, 800), alt: imagen.alt || producto.name }
+      : undefined;
 
     return {
       title: producto.name,
@@ -29,13 +35,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: producto.name,
         description: producto.short_description,
         url: `/producto/${producto.slug}`,
-        images: imagen ? [{ url: imagen.url, alt: imagen.alt || producto.name }] : undefined,
+        images: imagenOg ? [imagenOg] : undefined,
       },
       twitter: {
         card: "summary_large_image",
         title: producto.name,
         description: producto.short_description,
-        images: imagen ? [imagen.url] : undefined,
+        images: imagenOg ? [imagenOg.url] : undefined,
       },
     };
   } catch {
