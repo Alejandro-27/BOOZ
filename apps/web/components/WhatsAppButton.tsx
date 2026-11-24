@@ -1,11 +1,12 @@
 import { MessageCircle } from "lucide-react";
+import { cn, formatearPrecio } from "@/lib/utils";
 import { construirUrlWhatsApp } from "@/lib/whatsapp";
-import { cn } from "@/lib/utils";
 
 interface Props {
   numero: string;
   producto: string;
   slug: string;
+  precio: number;
   talla?: string;
   color?: string;
   urlBase: string;
@@ -17,6 +18,7 @@ export function WhatsAppButton({
   numero,
   producto,
   slug,
+  precio,
   talla,
   color,
   urlBase,
@@ -36,7 +38,15 @@ export function WhatsAppButton({
     );
   }
 
-  const url = construirUrlWhatsApp({ numero, producto, slug, talla, color, urlBase });
+  const url = construirUrlWhatsApp({
+    numero,
+    producto,
+    slug,
+    precio: formatearPrecio(precio),
+    talla,
+    color,
+    urlBase,
+  });
 
   return (
     <a

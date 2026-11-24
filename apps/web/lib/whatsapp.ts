@@ -2,6 +2,8 @@ interface MensajeWhatsApp {
   numero: string;
   producto: string;
   slug: string;
+  /** Precio ya formateado, ej: "$ 1.899". */
+  precio: string;
   talla?: string;
   color?: string;
   urlBase: string;
@@ -12,6 +14,7 @@ export function construirUrlWhatsApp({
   numero,
   producto,
   slug,
+  precio,
   talla,
   color,
   urlBase,
@@ -21,14 +24,23 @@ export function construirUrlWhatsApp({
   // Evita `//producto/...` si la URL base viene con barra final
   const base = urlBase.replace(/\/+$/, "");
 
-  const lineas = [
-    `Hola BOOZ, me interesa el modelo ${producto}.`,
-    talla ? `Talla: ${talla}` : null,
-    color ? `Color: ${color}` : null,
-    // La URL va sola en su propia línea: WhatsApp la detecta y genera la
-    // tarjeta con la og:image de la ficha del producto.
-    `${base}/producto/${slug}`,
-  ].filter((linea): linea is string => linea !== null);
+  const detalle = [talla ? `Talla: ${talla}` : null, color ? `Color: ${color}` : null]
+    .filter((linea): linea is string => linea !== null)
+    .join(" | ");
 
-  return `https://wa.me/${numeroLimpio}?text=${encodeURIComponent(lineas.join("\n"))}`;
+  const mensaje = [
+    "Hola BOOZ 👞",
+    "Me interesa este modelo:",
+    "",
+    producto,
+    ...(detalle ? [detalle] : []),
+    `Precio: ${precio}`,
+    "",
+    // WhatsApp detecta esta URL y genera la tarjeta con la og:image de la ficha.
+    `Ver producto: ${base}/producto/${slug}`,
+    "",
+    "¿Está disponible?",
+  ].join("\n");
+
+  return `https://wa.me/${numeroLimpio}?text=${encodeURIComponent(mensaje)}`;
 }

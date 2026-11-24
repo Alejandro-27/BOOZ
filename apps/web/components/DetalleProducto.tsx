@@ -121,6 +121,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
             numero={whatsapp}
             producto={producto.name}
             slug={producto.slug}
+            precio={producto.sale_price ?? producto.price}
             talla={talla ?? undefined}
             color={color ?? undefined}
             urlBase={URL_SITIO}
