@@ -12,6 +12,8 @@
   --color-laton: #a8a29e; /* costuras y líneas finas */
   --color-dorado: #a8a29e; /* alias histórico de latón */
   --color-pizarra: #57534e; /* texto de cuerpo */
+  --color-terracota: #9a3412; /* acentos del panel: foco, iconos y estado activo */
+  --color-laton-fuerte: #b49759; /* línea de latón de los títulos del panel */
 
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
@@ -102,9 +104,48 @@
   }
 }
 
+/* Entrada del panel: reutiliza fade-in-up (translate, no transform) y deja el
+   retraso en manos de cada elemento con animationDelay en línea. */
+@keyframes entrar-drawer {
+  from {
+    opacity: 0;
+    translate: -100% 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .entrada-admin {
+    animation: fade-in-up 0.55s ease-out both;
+  }
+
+  .entrada-drawer {
+    animation: entrar-drawer 0.25s ease-out both;
+  }
+
+  .entrada-fondo {
+    animation: aparecer 0.2s ease-out both;
+  }
+}
+
 @media print {
   .reveal-on-scroll,
-  .stagger > * {
+  .stagger > *,
+  .entrada-admin,
+  .entrada-drawer,
+  .entrada-fondo {
     animation: none;
   }
 }

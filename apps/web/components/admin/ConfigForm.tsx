@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAviso } from "@/components/Toasts";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { Contact, FileText, Loader2, Store } from "lucide-react";
 import { actualizarConfiguracion, obtenerConfiguracion } from "@/lib/api-admin";
 import {
   esquemaConfiguracion,
@@ -12,6 +13,7 @@ import {
   type SalidaConfiguracion,
 } from "@/lib/esquemas-admin";
 import { Alerta, Campo, claseInput } from "./Campo";
+import { Seccion } from "./Seccion";
 
 const VALORES_INICIALES: EntradaConfiguracion = {
   name: "",
@@ -79,7 +81,7 @@ export function ConfigForm() {
   const errores = form.formState.errors;
 
   if (isLoading) {
-    return <p className="text-sm text-carbon/60">Cargando configuración…</p>;
+    return <p className="text-sm text-stone-500">Cargando configuración…</p>;
   }
 
   return (
@@ -92,7 +94,7 @@ export function ConfigForm() {
         },
         () => avisar("aviso", "Faltan campos por completar. Revisa los datos marcados."),
       )}
-      className="space-y-8"
+      className="space-y-5"
       noValidate
     >
       {error && <Alerta>{error}</Alerta>}
@@ -102,8 +104,7 @@ export function ConfigForm() {
         </p>
       )}
 
-      <section className="space-y-4">
-        <h2 className="font-display text-xl">Identidad</h2>
+      <Seccion titulo="Identidad" icono={<Store className="size-4 text-terracota" aria-hidden />}>
 
         <Campo etiqueta="Nombre de la tienda" htmlFor="config-name" error={errores.name?.message}>
           <input id="config-name" {...form.register("name")} className={claseInput} />
@@ -123,7 +124,7 @@ export function ConfigForm() {
               id="config-color-primary"
               type="color"
               {...form.register("brand_colors.primary")}
-              className="h-11 w-full border border-carbon/20 bg-white p-1"
+              className="h-11 w-full rounded-sm border border-stone-300 bg-white p-1"
             />
           </Campo>
 
@@ -136,7 +137,7 @@ export function ConfigForm() {
               id="config-color-secondary"
               type="color"
               {...form.register("brand_colors.secondary")}
-              className="h-11 w-full border border-carbon/20 bg-white p-1"
+              className="h-11 w-full rounded-sm border border-stone-300 bg-white p-1"
             />
           </Campo>
 
@@ -155,10 +156,9 @@ export function ConfigForm() {
             />
           </Campo>
         </div>
-      </section>
+      </Seccion>
 
-      <section className="space-y-4 border-t border-carbon/10 pt-6">
-        <h2 className="font-display text-xl">Contacto</h2>
+      <Seccion titulo="Contacto" icono={<Contact className="size-4 text-terracota" aria-hidden />}>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <Campo
@@ -202,10 +202,12 @@ export function ConfigForm() {
         <Campo etiqueta="Dirección" htmlFor="config-address" error={errores.address?.message}>
           <input id="config-address" {...form.register("address")} className={claseInput} />
         </Campo>
-      </section>
+      </Seccion>
 
-      <section className="space-y-4 border-t border-carbon/10 pt-6">
-        <h2 className="font-display text-xl">Políticas de compra</h2>
+      <Seccion
+        titulo="Políticas de compra"
+        icono={<FileText className="size-4 text-terracota" aria-hidden />}
+      >
         <Campo
           etiqueta="Envíos, cambios y garantía"
           htmlFor="config-policies"
@@ -218,14 +220,15 @@ export function ConfigForm() {
             className={claseInput}
           />
         </Campo>
-      </section>
+      </Seccion>
 
-      <div className="flex justify-end border-t border-carbon/10 pt-6">
+      <div className="flex justify-end border-t border-stone-200 pt-5">
         <button
           type="submit"
           disabled={guardar.isPending}
-          className="w-full bg-carbon px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-hueso transition-colors hover:bg-carbon-suave disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-sm bg-carbon px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-hueso transition-all duration-300 ease-out hover:scale-[1.01] hover:bg-carbon-suave active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
         >
+          {guardar.isPending && <Loader2 className="size-4 animate-spin" aria-hidden />}
           {guardar.isPending ? "Guardando…" : "Guardar configuración"}
         </button>
       </div>

@@ -8,6 +8,17 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { ProductColor } from "@zapateria/shared";
 import {
+  AlignLeft,
+  BadgeDollarSign,
+  Check,
+  Images,
+  Info,
+  Loader2,
+  Palette,
+  Ruler,
+  Wand2,
+} from "lucide-react";
+import {
   actualizarProducto,
   crearProducto,
   listarCategoriasAdmin,
@@ -23,6 +34,7 @@ import { cn, generarSlug } from "@/lib/utils";
 import { Alerta, Campo, claseInput } from "./Campo";
 import { useAviso } from "@/components/Toasts";
 import { ImageUploader } from "./ImageUploader";
+import { Seccion } from "./Seccion";
 
 const ESTADOS = [
   { valor: "available", etiqueta: "Disponible" },
@@ -120,14 +132,15 @@ export function ProductForm({ producto }: Props) {
         },
         () => avisar("aviso", "Faltan campos por completar. Revisa los datos marcados."),
       )}
-      className="space-y-8"
+      className="space-y-5"
       noValidate
     >
       {error && <Alerta>{error}</Alerta>}
 
-      <section className="space-y-4">
-        <h2 className="font-display text-xl">Información básica</h2>
-
+      <Seccion
+        titulo="Información básica"
+        icono={<Info className="size-4 text-terracota" aria-hidden />}
+      >
         <Campo etiqueta="Nombre" htmlFor="name" error={errores.name?.message}>
           <input id="name" {...form.register("name")} className={claseInput} />
         </Campo>
@@ -145,14 +158,15 @@ export function ProductForm({ producto }: Props) {
               onClick={() =>
                 form.setValue("slug", generarSlug(nombre), { shouldValidate: true })
               }
-              className="shrink-0 border border-carbon/20 px-3 text-xs uppercase tracking-[0.15em] transition-colors hover:border-carbon"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-sm border border-stone-300 bg-white px-3 text-xs font-medium transition-all duration-200 hover:border-carbon hover:bg-stone-50 active:scale-[0.98]"
             >
+              <Wand2 className="size-3.5" aria-hidden />
               Generar
             </button>
           </div>
         </Campo>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Campo etiqueta="SKU" htmlFor="sku" error={errores.sku?.message}>
             <input id="sku" {...form.register("sku")} className={claseInput} />
           </Campo>
@@ -183,24 +197,25 @@ export function ProductForm({ producto }: Props) {
           </Campo>
         </div>
 
-        <label className="flex items-start gap-3 border border-carbon/10 bg-white p-4">
+        <label className="flex cursor-pointer items-start gap-3 rounded-sm border border-stone-200 bg-white p-4 transition-colors duration-200 hover:border-stone-300">
           <input
             type="checkbox"
             {...form.register("is_active")}
-            className="mt-0.5 size-4 accent-carbon"
+            className="mt-0.5 size-4 accent-terracota"
           />
           <span>
             <span className="block text-sm font-medium">Publicado en el catálogo</span>
-            <span className="block text-xs text-carbon/50">
+            <span className="block text-xs text-stone-500">
               Si lo desmarcas, el producto se guarda como borrador y no se muestra en la tienda.
             </span>
           </span>
         </label>
-      </section>
+      </Seccion>
 
-      <section className="space-y-4 border-t border-carbon/10 pt-6">
-        <h2 className="font-display text-xl">Precios e inventario</h2>
-
+      <Seccion
+        titulo="Precios e inventario"
+        icono={<BadgeDollarSign className="size-4 text-terracota" aria-hidden />}
+      >
         <div className="grid gap-4 sm:grid-cols-3">
           <Campo
             etiqueta="Precio (COP)"
@@ -247,11 +262,12 @@ export function ProductForm({ producto }: Props) {
             />
           </Campo>
         </div>
-      </section>
+      </Seccion>
 
-      <section className="space-y-4 border-t border-carbon/10 pt-6">
-        <h2 className="font-display text-xl">Descripción</h2>
-
+      <Seccion
+        titulo="Descripción"
+        icono={<AlignLeft className="size-4 text-terracota" aria-hidden />}
+      >
         <Campo
           etiqueta="Descripción corta"
           htmlFor="short_description"
@@ -281,10 +297,9 @@ export function ProductForm({ producto }: Props) {
         <Campo etiqueta="Material" htmlFor="material" error={errores.material?.message}>
           <input id="material" {...form.register("material")} className={claseInput} />
         </Campo>
-      </section>
+      </Seccion>
 
-      <section className="space-y-4 border-t border-carbon/10 pt-6">
-        <h2 className="font-display text-xl">Tallas</h2>
+      <Seccion titulo="Tallas" icono={<Ruler className="size-4 text-terracota" aria-hidden />}>
         <div className="flex flex-wrap gap-2">
           {TALLAS.map((talla) => {
             const activa = tallas.includes(talla);
@@ -295,10 +310,10 @@ export function ProductForm({ producto }: Props) {
                 onClick={() => alternarTalla(talla)}
                 aria-pressed={activa}
                 className={cn(
-                  "min-w-11 border px-3 py-2 text-sm transition-colors",
+                  "min-w-11 rounded-sm border px-3 py-2 text-sm transition-all duration-200 active:scale-[0.98]",
                   activa
-                    ? "border-carbon bg-carbon text-hueso"
-                    : "border-carbon/20 hover:border-carbon",
+                    ? "border-terracota bg-terracota/10 font-medium text-terracota"
+                    : "border-stone-300 hover:border-stone-400 hover:bg-stone-50",
                 )}
               >
                 {talla}
@@ -306,10 +321,12 @@ export function ProductForm({ producto }: Props) {
             );
           })}
         </div>
-      </section>
+      </Seccion>
 
-      <section className="space-y-4 border-t border-carbon/10 pt-6">
-        <h2 className="font-display text-xl">Colores</h2>
+      <Seccion
+        titulo="Colores"
+        icono={<Palette className="size-4 text-terracota" aria-hidden />}
+      >
         <div className="flex flex-wrap gap-2">
           {COLORES.map((color) => {
             const activo = colores.some((valor) => valor.name === color.nombre);
@@ -320,8 +337,10 @@ export function ProductForm({ producto }: Props) {
                 onClick={() => alternarColor({ name: color.nombre, hex: color.hex })}
                 aria-pressed={activo}
                 className={cn(
-                  "flex items-center gap-2 border px-3 py-2 text-sm transition-colors",
-                  activo ? "border-carbon bg-carbon/5" : "border-carbon/20 hover:border-carbon",
+                  "flex items-center gap-2 rounded-sm border px-3 py-2 text-sm transition-all duration-200 active:scale-[0.98]",
+                  activo
+                    ? "border-terracota bg-terracota/10 font-medium text-terracota"
+                    : "border-stone-300 hover:border-stone-400 hover:bg-stone-50",
                 )}
               >
                 <span
@@ -330,14 +349,17 @@ export function ProductForm({ producto }: Props) {
                   aria-hidden
                 />
                 {color.nombre}
+                {activo && <Check className="size-3.5" aria-hidden />}
               </button>
             );
           })}
         </div>
-      </section>
+      </Seccion>
 
-      <section className="space-y-4 border-t border-carbon/10 pt-6">
-        <h2 className="font-display text-xl">Imágenes</h2>
+      <Seccion
+        titulo="Imágenes"
+        icono={<Images className="size-4 text-terracota" aria-hidden />}
+      >
         <ImageUploader
           imagenes={imagenes}
           nombreProducto={nombre || "Producto"}
@@ -345,20 +367,21 @@ export function ProductForm({ producto }: Props) {
             form.setValue("images", nuevas, { shouldValidate: true, shouldDirty: true })
           }
         />
-      </section>
+      </Seccion>
 
-      <div className="flex flex-col gap-3 border-t border-carbon/10 pt-6 sm:flex-row sm:justify-end">
+      <div className="flex flex-col gap-3 border-t border-stone-200 pt-5 sm:flex-row sm:justify-end">
         <Link
           href="/admin/productos"
-          className="border border-carbon/20 px-6 py-3 text-center text-xs font-semibold uppercase tracking-[0.2em] transition-colors hover:border-carbon"
+          className="rounded-sm border border-stone-300 bg-white px-6 py-3 text-center text-xs font-semibold uppercase tracking-[0.2em] transition-all duration-300 ease-out hover:border-carbon hover:shadow-sm active:scale-[0.98]"
         >
           Cancelar
         </Link>
         <button
           type="submit"
           disabled={guardar.isPending}
-          className="bg-carbon px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-hueso transition-colors hover:bg-carbon-suave disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex items-center justify-center gap-2 rounded-sm bg-carbon px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-hueso transition-all duration-300 ease-out hover:scale-[1.01] hover:bg-carbon-suave active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
         >
+          {guardar.isPending && <Loader2 className="size-4 animate-spin" aria-hidden />}
           {guardar.isPending ? "Guardando…" : producto ? "Guardar cambios" : "Crear producto"}
         </button>
       </div>

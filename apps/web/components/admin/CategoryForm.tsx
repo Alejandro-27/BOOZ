@@ -6,6 +6,7 @@ import { useAviso } from "@/components/Toasts";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { createCategorySchema, type Category } from "@zapateria/shared";
+import { Wand2 } from "lucide-react";
 import type { z } from "zod";
 import { actualizarCategoria, crearCategoria } from "@/lib/api-admin";
 import { generarSlug } from "@/lib/utils";
@@ -62,7 +63,7 @@ export function CategoryForm({ categoria, onTerminado }: Props) {
         },
         () => avisar("aviso", "Escribe el nombre de la categoría."),
       )}
-      className="space-y-4 border border-carbon/10 bg-white p-4"
+      className="space-y-4 rounded-sm border border-stone-200 bg-tarjeta p-4 shadow-sm"
       noValidate
     >
       {error && <Alerta>{error}</Alerta>}
@@ -84,8 +85,9 @@ export function CategoryForm({ categoria, onTerminado }: Props) {
             onClick={() =>
               form.setValue("slug", generarSlug(nombre), { shouldValidate: true })
             }
-            className="shrink-0 border border-carbon/20 px-3 text-xs uppercase tracking-[0.15em] transition-colors hover:border-carbon"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-sm border border-stone-300 bg-white px-3 text-xs font-medium transition-all duration-200 hover:border-carbon hover:bg-stone-50 active:scale-[0.98]"
           >
+            <Wand2 className="size-3.5" aria-hidden />
             Generar
           </button>
         </div>
@@ -111,7 +113,7 @@ export function CategoryForm({ categoria, onTerminado }: Props) {
             <input
               type="checkbox"
               {...form.register("active")}
-              className="size-4 accent-cuero"
+              className="size-4 accent-terracota"
             />
             Categoría activa
           </label>
@@ -122,14 +124,14 @@ export function CategoryForm({ categoria, onTerminado }: Props) {
         <button
           type="button"
           onClick={onTerminado}
-          className="border border-carbon/20 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] transition-colors hover:border-carbon"
+          className="rounded-sm border border-stone-300 bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] transition-all duration-200 hover:border-carbon hover:shadow-sm active:scale-[0.98]"
         >
           Cancelar
         </button>
         <button
           type="submit"
           disabled={guardar.isPending}
-          className="bg-carbon px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-hueso transition-colors hover:bg-carbon-suave disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-sm bg-carbon px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.15em] text-hueso transition-all duration-200 hover:scale-[1.01] hover:bg-carbon-suave active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {guardar.isPending ? "Guardando…" : categoria ? "Guardar" : "Agregar"}
         </button>

@@ -65,8 +65,11 @@ export function ImageUploader({ imagenes, nombreProducto, onCambio }: Props) {
       {imagenes.length > 0 && (
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
           {imagenes.map((imagen, indice) => (
-            <li key={`${imagen.url}-${indice}`} className="space-y-2 border border-carbon/10 p-2">
-              <div className="relative aspect-square overflow-hidden bg-carbon/5">
+            <li
+              key={`${imagen.url}-${indice}`}
+              className="space-y-2 rounded-sm border border-stone-200 bg-white p-2 shadow-sm"
+            >
+              <div className="relative aspect-square overflow-hidden rounded-sm bg-stone-100">
                 <Image
                   src={imagen.url}
                   alt={imagen.alt}
@@ -84,12 +87,12 @@ export function ImageUploader({ imagenes, nombreProducto, onCambio }: Props) {
                 value={imagen.alt}
                 onChange={(evento) => cambiarAlt(indice, evento.target.value)}
                 placeholder="Texto alternativo"
-                className="w-full border border-carbon/20 px-2 py-1.5 text-xs outline-none focus:border-cuero"
+                className="w-full rounded-sm border border-stone-300 px-2 py-1.5 text-xs outline-none transition-all duration-200 focus:border-terracota focus:ring-2 focus:ring-terracota/15"
               />
               <button
                 type="button"
                 onClick={() => quitar(indice)}
-                className="flex w-full items-center justify-center gap-1 border border-carbon/15 px-2 py-1.5 text-xs text-cuero transition-colors hover:bg-cuero/5"
+                className="inline-flex w-full items-center justify-center gap-1 rounded-sm border border-stone-200 px-2 py-1.5 text-xs text-terracota transition-colors hover:border-terracota/40 hover:bg-terracota/5"
               >
                 <Trash2 className="size-3.5" aria-hidden />
                 Quitar
@@ -110,21 +113,23 @@ export function ImageUploader({ imagenes, nombreProducto, onCambio }: Props) {
         type="button"
         onClick={() => inputRef.current?.click()}
         disabled={subiendo}
-        className="flex w-full items-center justify-center gap-2 border border-dashed border-carbon/30 px-4 py-4 text-sm text-carbon/70 transition-colors hover:border-cuero hover:text-cuero disabled:cursor-wait disabled:opacity-60"
+        className="group flex w-full flex-col items-center justify-center gap-2 rounded-sm border-2 border-dashed border-stone-300 bg-white px-4 py-8 text-sm text-stone-500 transition-all duration-300 ease-out hover:border-terracota hover:bg-terracota/5 hover:text-terracota disabled:cursor-wait disabled:opacity-60"
       >
         {subiendo ? (
           <>
-            <Loader2 className="size-5 animate-spin" aria-hidden />
+            <Loader2 className="size-6 animate-spin" aria-hidden />
             Subiendo imagen…
           </>
         ) : (
           <>
-            <ImagePlus className="size-5" aria-hidden />
+            <span className="grid size-10 place-items-center rounded-full bg-terracota/10 text-terracota transition-transform duration-300 group-hover:scale-105">
+              <ImagePlus className="size-5" aria-hidden />
+            </span>
             Agregar imagen
           </>
         )}
       </button>
-      <p className="text-xs text-carbon/50">JPG, PNG o WebP. Máximo 5 MB por imagen.</p>
+      <p className="text-xs text-stone-500">JPG, PNG o WebP. Máximo 5 MB por imagen.</p>
     </div>
   );
 }

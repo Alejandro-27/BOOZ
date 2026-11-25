@@ -59,10 +59,10 @@ function Navegacion({ email, ruta, onNavegar, onCerrarSesion }: PropsNavegacion)
                   onClick={onNavegar}
                   aria-current={activo ? "page" : undefined}
                   className={cn(
-                    "flex items-center gap-3 px-3 py-2.5 text-sm transition-colors",
+                    "flex items-center gap-3 border-l-4 px-3 py-2.5 text-sm transition-all duration-200",
                     activo
-                      ? "bg-carbon text-hueso"
-                      : "text-carbon/75 hover:bg-carbon/5 hover:text-carbon",
+                      ? "border-terracota bg-stone-200/50 font-medium text-carbon"
+                      : "border-transparent text-stone-600 hover:bg-stone-100 hover:text-carbon",
                   )}
                 >
                   <Icono className="size-4 shrink-0" aria-hidden />
@@ -78,7 +78,7 @@ function Navegacion({ email, ruta, onNavegar, onCerrarSesion }: PropsNavegacion)
         <Link
           href="/"
           target="_blank"
-          className="flex items-center gap-3 px-3 py-2.5 text-sm text-carbon/75 transition-colors hover:bg-carbon/5 hover:text-carbon"
+          className="flex items-center gap-3 border-l-4 border-transparent px-3 py-2.5 text-sm text-stone-600 transition-all duration-200 hover:bg-stone-100 hover:text-carbon"
         >
           <ExternalLink className="size-4 shrink-0" aria-hidden />
           Ver el sitio
@@ -86,7 +86,7 @@ function Navegacion({ email, ruta, onNavegar, onCerrarSesion }: PropsNavegacion)
         <button
           type="button"
           onClick={onCerrarSesion}
-          className="flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm text-cuero transition-colors hover:bg-cuero/5"
+          className="flex w-full items-center gap-3 border-l-4 border-transparent px-3 py-2.5 text-left text-sm text-terracota transition-all duration-200 hover:bg-terracota/5"
         >
           <LogOut className="size-4 shrink-0" aria-hidden />
           Cerrar sesión
@@ -140,11 +140,11 @@ export function AdminShell({ email, children }: Props) {
               type="button"
               onClick={() => setAbierto(false)}
               aria-label="Cerrar menú del panel"
-              className="absolute inset-0 bg-carbon/50"
+              className="entrada-fondo absolute inset-0 bg-carbon/50"
             />
             <aside
               id="menu-admin"
-              className="relative flex h-full w-72 max-w-[85%] flex-col overflow-y-auto bg-white p-4"
+              className="entrada-drawer relative flex h-full w-72 max-w-[85%] flex-col overflow-y-auto bg-white p-4 shadow-xl"
             >
               <div className="mb-2 flex justify-end">
                 <button
