@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
+import { X } from "lucide-react";
 import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
 import type { Category } from "@zapateria/shared";
 import { COLORES, TALLAS } from "@/lib/constantes";
@@ -8,6 +9,65 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   categorias: Category[];
+}
+
+const clasePildora =
+  "shrink-0 snap-start rounded-full border px-4 py-2 text-sm transition-all duration-200 ease-out active:scale-[0.97]";
+
+interface PropsPildora {
+  activa: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}
+
+function Pildora({ activa, onClick, children }: PropsPildora) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={activa}
+      className={cn(
+        clasePildora,
+        activa
+          ? "border-terracota bg-terracota text-hueso shadow-sm"
+          : "border-stone-300 text-carbon hover:border-carbon hover:bg-stone-100",
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+
+interface PropsFila {
+  etiqueta: string;
+  id: string;
+  scrollable?: boolean;
+  children: ReactNode;
+}
+
+function Fila({ etiqueta, id, scrollable = true, children }: PropsFila) {
+  return (
+    <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
+      <p
+        id={id}
+        className="shrink-0 text-[11px] font-medium uppercase tracking-[0.2em] text-stone-500 sm:w-24"
+      >
+        {etiqueta}
+      </p>
+      <div
+        role="group"
+        aria-labelledby={id}
+        className={cn(
+          "flex gap-2",
+          scrollable
+            ? "snap-x overflow-x-auto px-0.5 py-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            : "flex-wrap items-center",
+        )}
+      >
+        {children}
+      </div>
+    </div>
+  );
 }
 
 export function FilterBar({ categorias }: Props) {
@@ -21,10 +81,9 @@ export function FilterBar({ categorias }: Props) {
       precio_min: parseAsInteger,
       precio_max: parseAsInteger,
     },
-    { shallow: false },
+    { shallow: false, scroll: false },
   );
 
-  const [abierto, setAbierto] = useState(false);
   const [precioMin, setPrecioMin] = useState(filtros.precio_min?.toString() ?? "");
   const [precioMax, setPrecioMax] = useState(filtros.precio_max?.toString() ?? "");
 
@@ -44,126 +103,107 @@ export function FilterBar({ categorias }: Props) {
     });
   };
 
-  const claseSelect =
-    "w-full border border-carbon/15 bg-transparent px-3 py-2 text-sm focus:border-cuero focus:outline-none";
+  const clasePrecio =
+    "w-24 rounded-full border border-stone-300 bg-white px-4 py-2 text-sm outline-none transition-all duration-200 focus:border-terracota focus:ring-2 focus:ring-terracota/15";
 
   return (
-    <div>
-      <button
-        type="button"
-        onClick={() => setAbierto((valor) => !valor)}
-        className="w-full border border-carbon/15 px-4 py-3 text-sm lg:hidden"
-        aria-expanded={abierto}
-        aria-controls="panel-filtros"
-      >
-        {abierto ? "Ocultar filtros" : "Mostrar filtros"}
-      </button>
-
-      <div
-        id="panel-filtros"
-        className={cn("mt-4 space-y-8 lg:mt-0", abierto ? "block" : "hidden lg:block")}
-      >
-        <div>
-          <label htmlFor="filtro-categoria" className="text-sm font-medium text-carbon">
-            Categoría
-          </label>
-          <select
-            id="filtro-categoria"
-            className={cn(claseSelect, "mt-2")}
-            value={filtros.categoria ?? ""}
-            onChange={(evento) =>
-              void setFiltros({ categoria: evento.target.value || null })
-            }
+    <div className="space-y-2 rounded-sm border border-stone-200 bg-tarjeta p-4 shadow-sm sm:space-y-3 sm:p-5">
+      <Fila etiqueta="Categoría" id="filtro-categoria-label">
+        <Pildora activa={!filtros.categoria} onClick={() => void setFiltros({ categoria: null })}>
+          Todas
+        </Pildora>
+        {categorias.map((categoria) => (
+          <Pildora
+            key={categoria.id}
+            activa={filtros.categoria === categoria.slug}
+            onClick={() => void setFiltros({ categoria: categoria.slug })}
           >
-            <option value="">Todas</option>
-            {categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.slug}>
-                {categoria.name}
-              </option>
-            ))}
-          </select>
-        </div>
+            {categoria.name}
+          </Pildora>
+        ))}
+      </Fila>
 
-        <div>
-          <label htmlFor="filtro-talla" className="text-sm font-medium text-carbon">
-            Talla
-          </label>
-          <select
-            id="filtro-talla"
-            className={cn(claseSelect, "mt-2")}
-            value={filtros.talla ?? ""}
-            onChange={(evento) => void setFiltros({ talla: evento.target.value || null })}
+      <Fila etiqueta="Talla" id="filtro-talla-label">
+        <Pildora activa={!filtros.talla} onClick={() => void setFiltros({ talla: null })}>
+          Todas
+        </Pildora>
+        {TALLAS.map((talla) => (
+          <Pildora
+            key={talla}
+            activa={filtros.talla === talla}
+            onClick={() => void setFiltros({ talla })}
           >
-            <option value="">Todas</option>
-            {TALLAS.map((talla) => (
-              <option key={talla} value={talla}>
-                {talla}
-              </option>
-            ))}
-          </select>
-        </div>
+            {talla}
+          </Pildora>
+        ))}
+      </Fila>
 
-        <div>
-          <label htmlFor="filtro-color" className="text-sm font-medium text-carbon">
-            Color
-          </label>
-          <select
-            id="filtro-color"
-            className={cn(claseSelect, "mt-2")}
-            value={filtros.color ?? ""}
-            onChange={(evento) => void setFiltros({ color: evento.target.value || null })}
+      <Fila etiqueta="Color" id="filtro-color-label">
+        <Pildora activa={!filtros.color} onClick={() => void setFiltros({ color: null })}>
+          Todos
+        </Pildora>
+        {COLORES.map((color) => (
+          <Pildora
+            key={color.nombre}
+            activa={filtros.color === color.nombre}
+            onClick={() => void setFiltros({ color: color.nombre })}
           >
-            <option value="">Todos</option>
-            {COLORES.map((color) => (
-              <option key={color.nombre} value={color.nombre}>
-                {color.nombre}
-              </option>
-            ))}
-          </select>
-        </div>
+            <span className="flex items-center gap-2">
+              <span
+                className="size-3 rounded-full border border-carbon/20"
+                style={{ backgroundColor: color.hex }}
+                aria-hidden
+              />
+              {color.nombre}
+            </span>
+          </Pildora>
+        ))}
+      </Fila>
 
-        <form onSubmit={aplicarPrecio}>
-          <p className="text-sm font-medium text-carbon">Precio (COP)</p>
-          <div className="mt-2 flex items-center gap-2">
-            <input
-              type="number"
-              min={0}
-              inputMode="numeric"
-              placeholder="Mín"
-              aria-label="Precio mínimo"
-              value={precioMin}
-              onChange={(evento) => setPrecioMin(evento.target.value)}
-              className={claseSelect}
-            />
-            <span className="text-carbon/40">–</span>
-            <input
-              type="number"
-              min={0}
-              inputMode="numeric"
-              placeholder="Máx"
-              aria-label="Precio máximo"
-              value={precioMax}
-              onChange={(evento) => setPrecioMax(evento.target.value)}
-              className={claseSelect}
-            />
-          </div>
+      <Fila etiqueta="Precio" id="filtro-precio-label" scrollable={false}>
+        <form onSubmit={aplicarPrecio} className="flex items-center gap-2">
+          <input
+            type="number"
+            min={0}
+            inputMode="numeric"
+            placeholder="Mín"
+            aria-label="Precio mínimo"
+            value={precioMin}
+            onChange={(evento) => setPrecioMin(evento.target.value)}
+            className={clasePrecio}
+          />
+          <span aria-hidden className="text-stone-400">
+            –
+          </span>
+          <input
+            type="number"
+            min={0}
+            inputMode="numeric"
+            placeholder="Máx"
+            aria-label="Precio máximo"
+            value={precioMax}
+            onChange={(evento) => setPrecioMax(evento.target.value)}
+            className={clasePrecio}
+          />
           <button
             type="submit"
-            className="mt-3 w-full border border-carbon px-4 py-2.5 text-sm transition-colors hover:bg-carbon hover:text-hueso"
+            className="shrink-0 rounded-full bg-carbon px-4 py-2 text-xs font-semibold uppercase tracking-[0.1em] text-hueso transition-all duration-200 hover:bg-carbon-suave active:scale-[0.97]"
           >
-            Aplicar precio
+            Aplicar
           </button>
         </form>
 
-        <button
-          type="button"
-          onClick={limpiar}
-          disabled={!hayFiltros}
-          className="w-full text-sm text-oxblood underline-offset-4 hover:underline disabled:cursor-not-allowed disabled:text-carbon/30 disabled:no-underline"
-        >
-          Limpiar filtros
-        </button>
-      </div>
+        {hayFiltros && (
+          <button
+            type="button"
+            onClick={limpiar}
+            className="inline-flex items-center gap-1 rounded-full border border-stone-300 px-4 py-2 text-sm text-terracota transition-colors hover:border-terracota hover:bg-terracota/5"
+          >
+            <X className="size-3.5" aria-hidden />
+            Limpiar
+          </button>
+        )}
+      </Fila>
     </div>
   );
 }

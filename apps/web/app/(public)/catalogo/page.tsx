@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import type { Category } from "@zapateria/shared";
 import { FilterBar } from "@/components/FilterBar";
 import { ProductCard } from "@/components/ProductCard";
+import { SkeletonGrid } from "@/components/SkeletonGrid";
 import {
   obtenerCategorias,
   obtenerProductos,
@@ -13,8 +15,16 @@ export const metadata: Metadata = {
   description: "Zapatos formales, casuales, de boda y botas para hombre.",
 };
 
+const MENSAJE_ERROR =
+  "No pudimos cargar el catálogo en este momento. Intenta de nuevo en unos segundos.";
+
 interface Props {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+interface ResultadoProductos {
+  productos: ProductoConCategoria[];
+  error: string | null;
 }
 
 /** Lee un parámetro de búsqueda simple (ignora arrays y vacíos). */
@@ -42,18 +52,27 @@ export default async function CatalogoPage({ searchParams }: Props) {
   const precioMin = aCentavos(leerParametro(params, "precio_min"));
   const precioMax = aCentavos(leerParametro(params, "precio_max"));
 
-  let productos: ProductoConCategoria[] = [];
-  let categorias: Category[] = [];
-  let error: string | null = null;
+  // La consulta arranca antes de esperar las categorías: ambas van en paralelo.
+  // El catch se adjunta ya para que un fallo no quede sin manejar.
+  const datosProductos: Promise<ResultadoProductos> = obtenerProductos({
+    categoria,
+    talla,
+    color,
+    precioMin,
+    precioMax,
+  }).then(
+    (productos) => ({ productos, error: null }),
+    () => ({ productos: [], error: MENSAJE_ERROR }),
+  );
 
+  let categorias: Category[] = [];
   try {
-    [productos, categorias] = await Promise.all([
-      obtenerProductos({ categoria, talla, color, precioMin, precioMax }),
-      obtenerCategorias(),
-    ]);
+    categorias = await obtenerCategorias();
   } catch {
-    error = "No pudimos cargar el catálogo en este momento. Intenta de nuevo en unos segundos.";
+    // Sin categorías la barra sigue sirviendo para talla, color y precio.
   }
+
+  const clave = [categoria, talla, color, precioMin, precioMax].join("|");
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
@@ -68,41 +87,56 @@ export default async function CatalogoPage({ searchParams }: Props) {
         </p>
       </header>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-[260px_1fr] lg:gap-12">
-        <aside aria-label="Filtros del catálogo">
-          <FilterBar categorias={categorias} />
-        </aside>
+      <section aria-label="Filtros del catálogo" className="mt-8">
+        <FilterBar categorias={categorias} />
+      </section>
 
-        <section aria-label="Productos">
-          {error ? (
-            <p className="border border-oxblood/30 bg-oxblood/5 px-4 py-3 text-sm text-oxblood">
-              {error}
-            </p>
-          ) : productos.length === 0 ? (
-            <div className="border border-carbon/10 px-6 py-16 text-center">
-              <p className="font-display text-xl">No encontramos productos con esos filtros</p>
-              <p className="mt-2 text-sm text-pizarra">
-                Prueba con otra talla, color o rango de precio.
-              </p>
-            </div>
-          ) : (
-            <>
-              <p className="mb-6 text-sm text-pizarra">
-                {productos.length} {productos.length === 1 ? "modelo" : "modelos"}
-              </p>
-              <div className="stagger grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 xl:grid-cols-3">
-                {productos.map((producto, indice) => (
-                  <ProductCard
-                    key={producto.id}
-                    producto={producto}
-                    prioritaria={indice === 0}
-                  />
-                ))}
-              </div>
-            </>
-          )}
-        </section>
-      </div>
+      <section aria-label="Productos" className="mt-8">
+        <Suspense key={clave} fallback={<SkeletonGrid />}>
+          <Listado datos={datosProductos} />
+        </Suspense>
+      </section>
     </div>
+  );
+}
+
+async function Listado({ datos }: { datos: Promise<ResultadoProductos> }) {
+  const { productos, error } = await datos;
+
+  if (error) {
+    return (
+      <p role="alert" className="rounded-sm border border-oxblood/30 bg-oxblood/5 px-4 py-3 text-sm text-oxblood">
+        {error}
+      </p>
+    );
+  }
+
+  if (productos.length === 0) {
+    return (
+      <div className="rounded-sm border border-stone-200 px-6 py-16 text-center">
+        <p className="font-display text-xl">No encontramos productos con esos filtros</p>
+        <p className="mt-2 text-sm text-pizarra">
+          Prueba con otra talla, color o rango de precio.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <p className="mb-5 text-sm text-pizarra">
+        {productos.length} {productos.length === 1 ? "modelo" : "modelos"}
+      </p>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 lg:gap-6">
+        {productos.map((producto, indice) => (
+          <ProductCard
+            key={producto.id}
+            producto={producto}
+            prioritaria={indice === 0}
+            indice={indice}
+          />
+        ))}
+      </div>
+    </>
   );
 }
