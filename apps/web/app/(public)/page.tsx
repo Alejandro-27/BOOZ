@@ -65,7 +65,7 @@ export default async function InicioPage() {
 
           {portada && destacado && (
             <div className="sm:col-span-5">
-              <div className="relative aspect-[4/5] overflow-hidden bg-carbon/5">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-carbon/5">
                 <Image
                   src={portada.url}
                   alt={portada.alt || destacado.name}
@@ -113,7 +113,7 @@ export default async function InicioPage() {
             </Link>
           </div>
 
-          <div className="stagger grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {destacados.map((producto) => (
               <ProductCard key={producto.id} producto={producto} />
             ))}

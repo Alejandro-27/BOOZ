@@ -60,12 +60,10 @@
 
 /* Aparición al entrar en el viewport. Sin soporte, el contenido se ve igual:
    es una mejora progresiva, no una condición para que exista el texto. */
-@keyframes fade-in-up {
+@keyframes fluidReveal {
   from {
     opacity: 0;
-    /* `translate` en vez de `transform`: así el hover:scale de la tarjeta
-       sigue funcionando cuando la animación ya terminó. */
-    translate: 0 1.25rem;
+    translate: 0 1.5rem;
   }
   to {
     opacity: 1;
@@ -75,55 +73,18 @@
 
 @media (prefers-reduced-motion: no-preference) {
   @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    /* `backwards` y no `both`: antes de entrar retiene el estado invisible, y
+       al terminar suelta la propiedad `translate` para que el hover:-translate-y-1
+       de la tarjeta vuelva a mandar. */
     .reveal-on-scroll {
-      animation: fade-in-up 0.8s ease-out both;
+      animation: fluidReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
       animation-timeline: view();
-      animation-range: entry 10% cover 30%;
+      animation-range: entry 10% cover 25%;
     }
-
-    /* Las tarjetas entran una tras otra (50 ms); a partir de la 13 el retraso
-       vuelve a 0 para no dejar la última fila esperando. */
-    .stagger > * {
-      animation: fade-in-up 0.7s ease-out both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 30%;
-      animation-delay: calc(var(--i, 0) * 50ms);
-    }
-    .stagger > :nth-child(1) { --i: 0; }
-    .stagger > :nth-child(2) { --i: 1; }
-    .stagger > :nth-child(3) { --i: 2; }
-    .stagger > :nth-child(4) { --i: 3; }
-    .stagger > :nth-child(5) { --i: 4; }
-    .stagger > :nth-child(6) { --i: 5; }
-    .stagger > :nth-child(7) { --i: 6; }
-    .stagger > :nth-child(8) { --i: 7; }
-    .stagger > :nth-child(9) { --i: 8; }
-    .stagger > :nth-child(10) { --i: 9; }
-    .stagger > :nth-child(11) { --i: 10; }
-    .stagger > :nth-child(12) { --i: 11; }
   }
 }
 
-/* Entrada de las tarjetas del catálogo. Anima `translate` y no `transform`:
-   una animación con `forwards` sobre transform pisaría el hover:scale. */
-@keyframes stagger-fade-in {
-  from {
-    opacity: 0;
-    translate: 0 0.75rem;
-  }
-  to {
-    opacity: 1;
-    translate: 0 0;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .stagger-fade-in {
-    animation: stagger-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-}
-
-/* Entrada del panel: reutiliza fade-in-up (translate, no transform) y deja el
+/* Entrada del panel: reutiliza fluidReveal (translate, no transform) y deja el
    retraso en manos de cada elemento con animationDelay en línea. */
 @keyframes entrar-drawer {
   from {
@@ -147,7 +108,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .entrada-admin {
-    animation: fade-in-up 0.55s ease-out both;
+    animation: fluidReveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .entrada-drawer {
@@ -161,7 +122,6 @@
 
 @media print {
   .reveal-on-scroll,
-  .stagger > *,
   .entrada-admin,
   .entrada-drawer,
   .entrada-fondo {

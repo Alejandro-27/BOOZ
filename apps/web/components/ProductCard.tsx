@@ -6,14 +6,12 @@ import { cn, formatearPrecio } from "@/lib/utils";
 interface Props {
   producto: ProductoConCategoria;
   prioritaria?: boolean;
-  /** Posición en el grid: activa la entrada escalonada. */
-  indice?: number;
 }
 
 const claseBadge =
-  "rounded-full px-2.5 py-1 text-[0.625rem] font-semibold uppercase tracking-wider backdrop-blur-sm";
+  "rounded-full border border-white/50 bg-white/70 px-2.5 py-1 text-xs font-semibold backdrop-blur-md";
 
-export function ProductCard({ producto, prioritaria = false, indice }: Props) {
+export function ProductCard({ producto, prioritaria = false }: Props) {
   const imagen = producto.images[0];
   const imagenHover = producto.images[1];
   const agotado = producto.status === "soldout" || producto.stock === 0;
@@ -24,17 +22,7 @@ export function ProductCard({ producto, prioritaria = false, indice }: Props) {
       : null;
 
   return (
-    <article
-      className={cn(
-        "product-card group overflow-hidden rounded-sm border border-stone-200 bg-tarjeta shadow-sm transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-md active:scale-[0.98]",
-        indice !== undefined && "stagger-fade-in",
-      )}
-      style={
-        indice !== undefined
-          ? { animationDelay: `${Math.min(indice, 11) * 50}ms` }
-          : undefined
-      }
-    >
+    <article className="product-card reveal-on-scroll group overflow-hidden rounded-2xl border border-stone-200 bg-tarjeta shadow-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-xl active:scale-[0.98]">
       <Link href={`/producto/${producto.slug}`} className="flex h-full flex-col">
         <div className="relative aspect-[4/5] shrink-0 overflow-hidden bg-carbon/5">
           {imagen ? (
@@ -46,7 +34,7 @@ export function ProductCard({ producto, prioritaria = false, indice }: Props) {
                 priority={prioritaria}
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className={cn(
-                  "object-cover transition-opacity duration-500 ease-in-out",
+                  "object-cover transition-opacity duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
                   agotado && "opacity-60",
                   puedeCruzar && "group-hover:opacity-0 group-active:opacity-0",
                 )}
@@ -58,7 +46,7 @@ export function ProductCard({ producto, prioritaria = false, indice }: Props) {
                   aria-hidden
                   fill
                   sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  className="object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 group-active:opacity-100"
+                  className="object-cover opacity-0 transition-opacity duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100 group-active:opacity-100"
                 />
               )}
             </>
@@ -70,13 +58,11 @@ export function ProductCard({ producto, prioritaria = false, indice }: Props) {
 
           <div className="absolute left-3 top-3 flex flex-col items-start gap-2">
             {producto.status === "featured" && (
-              <span className={cn(claseBadge, "bg-laton-fuerte/85 text-carbon")}>Destacado</span>
+              <span className={cn(claseBadge, "text-carbon")}>Destacado</span>
             )}
-            {agotado && (
-              <span className={cn(claseBadge, "bg-carbon/85 text-hueso")}>Agotado</span>
-            )}
+            {agotado && <span className={cn(claseBadge, "text-pizarra")}>Agotado</span>}
             {descuento !== null && !agotado && (
-              <span className={cn(claseBadge, "bg-terracota/90 text-hueso")}>-{descuento}%</span>
+              <span className={cn(claseBadge, "text-terracota")}>-{descuento}%</span>
             )}
           </div>
         </div>

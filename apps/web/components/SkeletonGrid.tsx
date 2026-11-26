@@ -11,7 +11,7 @@ export function SkeletonGrid() {
         {Array.from({ length: 8 }).map((_, indice) => (
           <div
             key={indice}
-            className="animate-pulse overflow-hidden rounded-sm border border-stone-200 bg-tarjeta"
+            className="animate-pulse overflow-hidden rounded-2xl border border-stone-200 bg-tarjeta"
           >
             <div className="aspect-[4/5] bg-stone-200" />
             <div className="space-y-2 p-4">

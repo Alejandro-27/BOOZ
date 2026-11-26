@@ -4,11 +4,7 @@ import type { Category } from "@zapateria/shared";
 import { FilterBar } from "@/components/FilterBar";
 import { ProductCard } from "@/components/ProductCard";
 import { SkeletonGrid } from "@/components/SkeletonGrid";
-import {
-  obtenerCategorias,
-  obtenerProductos,
-  type ProductoConCategoria,
-} from "@/lib/api";
+import { obtenerCategorias, obtenerProductos, type ProductoConCategoria } from "@/lib/api";
 
 export const metadata: Metadata = {
   title: "Catálogo",
@@ -105,7 +101,10 @@ async function Listado({ datos }: { datos: Promise<ResultadoProductos> }) {
 
   if (error) {
     return (
-      <p role="alert" className="rounded-sm border border-oxblood/30 bg-oxblood/5 px-4 py-3 text-sm text-oxblood">
+      <p
+        role="alert"
+        className="rounded-sm border border-oxblood/30 bg-oxblood/5 px-4 py-3 text-sm text-oxblood"
+      >
         {error}
       </p>
     );
@@ -113,11 +112,9 @@ async function Listado({ datos }: { datos: Promise<ResultadoProductos> }) {
 
   if (productos.length === 0) {
     return (
-      <div className="rounded-sm border border-stone-200 px-6 py-16 text-center">
+      <div className="rounded-2xl border border-stone-200 px-6 py-16 text-center">
         <p className="font-display text-xl">No encontramos productos con esos filtros</p>
-        <p className="mt-2 text-sm text-pizarra">
-          Prueba con otra talla, color o rango de precio.
-        </p>
+        <p className="mt-2 text-sm text-pizarra">Prueba con otra talla, color o rango de precio.</p>
       </div>
     );
   }
@@ -129,12 +126,7 @@ async function Listado({ datos }: { datos: Promise<ResultadoProductos> }) {
       </p>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 lg:gap-6">
         {productos.map((producto, indice) => (
-          <ProductCard
-            key={producto.id}
-            producto={producto}
-            prioritaria={indice === 0}
-            indice={indice}
-          />
+          <ProductCard key={producto.id} producto={producto} prioritaria={indice === 0} />
         ))}
       </div>
     </>
