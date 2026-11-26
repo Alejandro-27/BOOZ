@@ -45,7 +45,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
                 {formatearPrecio(producto.price)}
               </span>
               {descuento !== null && (
-                <span className="bg-oxblood px-2 py-1 text-[0.625rem] font-semibold text-hueso">
+                <span className="rounded-full bg-oxblood px-2 py-1 text-[0.625rem] font-semibold text-hueso">
                   -{descuento}%
                 </span>
               )}
@@ -72,7 +72,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
                   }
                   aria-pressed={talla === tallaDisponible}
                   className={cn(
-                    "min-w-11 border px-3 py-2 text-sm transition-colors",
+                    "min-w-11 rounded-full border px-3 py-2 text-sm transition-all duration-200 active:scale-[0.98]",
                     talla === tallaDisponible
                       ? "border-carbon bg-carbon text-hueso"
                       : "border-carbon/20 hover:border-carbon",
@@ -98,7 +98,7 @@ export function DetalleProducto({ producto, whatsapp }: Props) {
                   }
                   aria-pressed={color === colorDisponible.name}
                   className={cn(
-                    "flex items-center gap-2 border px-3 py-2 text-sm transition-colors",
+                    "flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-all duration-200 active:scale-[0.98]",
                     color === colorDisponible.name
                       ? "border-carbon bg-carbon/5"
                       : "border-carbon/20 hover:border-carbon",

@@ -29,7 +29,7 @@ export function WhatsAppButton({
     return (
       <span
         className={cn(
-          "inline-flex w-full items-center justify-center gap-2 bg-carbon-suave px-6 py-4 text-sm font-semibold text-hueso/60",
+          "inline-flex w-full items-center justify-center gap-2 rounded-full bg-carbon-suave px-6 py-4 text-sm font-semibold text-hueso/60",
           className,
         )}
       >
@@ -54,7 +54,7 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "inline-flex w-full items-center justify-center gap-2 bg-oxblood px-6 py-4 text-sm font-semibold text-hueso hover:bg-oxblood-oscuro transition-colors",
+        "inline-flex w-full items-center justify-center gap-2 rounded-full bg-oxblood px-6 py-4 text-sm font-semibold text-hueso transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] hover:bg-oxblood-oscuro active:scale-[0.98]",
         className,
       )}
     >

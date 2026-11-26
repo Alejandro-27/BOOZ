@@ -25,7 +25,7 @@ export function ProductLightbox({ imagenes, nombre }: Props) {
         type="button"
         onClick={() => setIndice(0)}
         aria-label={`Ampliar imagen de ${nombre}`}
-        className="group relative block aspect-[4/5] w-full overflow-hidden bg-carbon/5"
+        className="group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl bg-carbon/5"
       >
         {principal ? (
           <Image
@@ -43,7 +43,7 @@ export function ProductLightbox({ imagenes, nombre }: Props) {
         )}
 
         {principal && (
-          <span className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-carbon/70 px-2.5 py-1.5 text-[0.6875rem] font-medium text-hueso">
+          <span className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-carbon/70 px-2.5 py-1.5 text-[0.6875rem] font-medium text-hueso">
             <Maximize2 className="size-3.5" strokeWidth={1.5} aria-hidden />
             Ampliar
           </span>
@@ -58,7 +58,7 @@ export function ProductLightbox({ imagenes, nombre }: Props) {
                 type="button"
                 onClick={() => setIndice(posicion)}
                 aria-label={`Abrir imagen ${posicion + 1} de ${nombre}`}
-                className="relative block aspect-square w-full overflow-hidden border border-carbon/10 transition-colors hover:border-cuero"
+                className="relative block aspect-square w-full overflow-hidden rounded-xl border border-carbon/10 transition-colors hover:border-cuero"
               >
                 <Image
                   src={imagen.url}

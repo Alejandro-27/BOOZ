@@ -50,7 +50,7 @@ export default async function InicioPage() {
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
               <Link
                 href="/catalogo"
-                className="bg-oxblood px-7 py-3.5 text-center text-sm font-medium text-hueso transition-colors hover:bg-oxblood-oscuro"
+                className="rounded-full bg-oxblood px-7 py-3.5 text-center text-sm font-medium text-hueso transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] hover:bg-oxblood-oscuro active:scale-[0.98]"
               >
                 Ver catálogo
               </Link>
@@ -134,7 +134,7 @@ export default async function InicioPage() {
           </div>
           <Link
             href="/contacto"
-            className="shrink-0 bg-hueso px-7 py-3.5 text-center text-sm font-medium text-carbon transition-colors hover:bg-laton"
+            className="shrink-0 rounded-full bg-hueso px-7 py-3.5 text-center text-sm font-medium text-carbon transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] hover:bg-laton active:scale-[0.98]"
           >
             Contáctanos
           </Link>

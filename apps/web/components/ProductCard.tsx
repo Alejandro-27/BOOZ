@@ -22,7 +22,7 @@ export function ProductCard({ producto, prioritaria = false }: Props) {
       : null;
 
   return (
-    <article className="product-card reveal-on-scroll group overflow-hidden rounded-2xl border border-stone-200 bg-tarjeta shadow-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-xl active:scale-[0.98]">
+    <article className="product-card reveal-on-scroll group overflow-hidden rounded-2xl border border-stone-200 bg-tarjeta shadow-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-lg active:scale-[0.98]">
       <Link href={`/producto/${producto.slug}`} className="flex h-full flex-col">
         <div className="relative aspect-[4/5] shrink-0 overflow-hidden bg-carbon/5">
           {imagen ? (

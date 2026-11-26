@@ -62,7 +62,7 @@ export default async function NosotrosPage() {
       <div className="mt-14">
         <Link
           href="/catalogo"
-          className="inline-block bg-oxblood px-7 py-3.5 text-sm font-medium text-hueso transition-colors hover:bg-oxblood-oscuro"
+          className="inline-block rounded-full bg-oxblood px-7 py-3.5 text-sm font-medium text-hueso transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] hover:bg-oxblood-oscuro active:scale-[0.98]"
         >
           Ver el catálogo
         </Link>

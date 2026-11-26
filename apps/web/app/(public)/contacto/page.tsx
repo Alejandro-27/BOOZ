@@ -29,7 +29,7 @@ export default async function ContactoPage() {
             href={`https://wa.me/${numeroWhatsApp}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-start gap-3 border border-carbon/10 p-5 transition-colors hover:border-cuero"
+            className="flex items-start gap-3 rounded-2xl border border-carbon/10 p-5 transition-colors hover:border-cuero"
           >
             <MessageCircle className="mt-0.5 size-5 shrink-0 text-oxblood" strokeWidth={1.5} aria-hidden />
             <div>
@@ -42,7 +42,7 @@ export default async function ContactoPage() {
         {configuracion?.email && (
           <a
             href={`mailto:${configuracion.email}`}
-            className="flex items-start gap-3 border border-carbon/10 p-5 transition-colors hover:border-cuero"
+            className="flex items-start gap-3 rounded-2xl border border-carbon/10 p-5 transition-colors hover:border-cuero"
           >
             <Mail className="mt-0.5 size-5 shrink-0 text-oxblood" strokeWidth={1.5} aria-hidden />
             <div>
@@ -57,7 +57,7 @@ export default async function ContactoPage() {
             href={`https://instagram.com/${configuracion.instagram.replace(/^@/, "")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-start gap-3 border border-carbon/10 p-5 transition-colors hover:border-cuero"
+            className="flex items-start gap-3 rounded-2xl border border-carbon/10 p-5 transition-colors hover:border-cuero"
           >
             <AtSign className="mt-0.5 size-5 shrink-0 text-oxblood" strokeWidth={1.5} aria-hidden />
             <div>
@@ -68,7 +68,7 @@ export default async function ContactoPage() {
         )}
 
         {(configuracion?.address || configuracion?.city) && (
-          <div className="flex items-start gap-3 border border-carbon/10 p-5">
+          <div className="flex items-start gap-3 rounded-2xl border border-carbon/10 p-5">
             <MapPin className="mt-0.5 size-5 shrink-0 text-oxblood" strokeWidth={1.5} aria-hidden />
             <div>
               <p className="text-sm text-pizarra">Ubicación</p>
