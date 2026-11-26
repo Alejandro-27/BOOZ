@@ -29,7 +29,7 @@ export default async function InicioPage() {
   } catch {
     // Si la API no responde, la home sigue mostrando el hero y el CTA
   }
-
+  
   const destacado = destacados[0];
   const portada = destacado?.images[0];
 
