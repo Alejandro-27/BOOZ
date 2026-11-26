@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
     // Next, que no está disponible en Cloudflare Workers.
     loader: "custom",
     loaderFile: "./lib/imagenes.ts",
+    // Misma escalera que lib/imagenes.ts: cada ancho es una transformación de
+    // Cloudinary. Sin esto Next pide hasta 3840 px, que nadie ve.
+    deviceSizes: [384, 640, 960, 1280, 1600],
+    imageSizes: [160, 256],
     remotePatterns: [{ protocol: "https", hostname: "res.cloudinary.com" }],
   },
 };
