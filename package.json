@@ -10,8 +10,9 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "start": "turbo run start",
-    "lint": "turbo run lint",
     "format": "prettier --write .",
+    "lint": "turbo run lint",
+    "test": "echo \"Sin pruebas configuradas\"",
     "prepare": "husky"
   },
   "devDependencies": {
